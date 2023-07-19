@@ -3,6 +3,8 @@ const pkg = require('../../package.json')
 
 const databaseName = pkg.name
 
+'this is a test'
+
 const config = {
   logging: false
 };
