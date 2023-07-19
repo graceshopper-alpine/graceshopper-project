@@ -1,5 +1,5 @@
 {
-  "name": "fs-app-template",
+  "name": "grace-shopper",
   "version": "2.0.0",
   "description": "Some boilerplate code to get you started - get shakin'!",
   "main": "index.js",
@@ -27,7 +27,8 @@
     "history": "^4.9.0",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.9.1",
-    "pg": "^8.5.1",
+    "pg": "^8.11.1",
+    "postgresql": "^0.0.1",
     "sequelize": "^6.3.5"
   },
   "devDependencies": {
