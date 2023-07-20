@@ -4,11 +4,12 @@ const morgan = require('morgan')
 const app = express()
 module.exports = app
 
-// logging middleware
-app.use(morgan('dev'))
 
 // body parsing middleware
 app.use(express.json())
+
+// logging middleware
+app.use(morgan('dev'))
 
 // auth and api routes
 app.use('/auth', require('./auth'))

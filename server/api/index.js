@@ -4,6 +4,7 @@ const {
 } = require("../db");
 
 router.use("/users", require("./users"));
+router.use("/sessions", require("./sessions"));
 
 // view all product
 router.get("/products", async (req, res, next) => {
