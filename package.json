@@ -4,7 +4,7 @@
   "description": "Some boilerplate code to get you started - get shakin'!",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
+    "build": "webpack --watch",
     "build:dev": "npm run build -- --watch --mode=development",
     "seed": "node script/seed.js",
     "start": "node server",
@@ -58,7 +58,7 @@
     "redux-mock-store": "^1.5.3",
     "redux-thunk": "^2.3.0",
     "supertest": "^4.0.2",
-    "webpack": "^5.15.0",
+    "webpack": "^5.88.2",
     "webpack-cli": "^4.3.1"
   }
 }
