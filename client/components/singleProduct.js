@@ -7,7 +7,7 @@ const SingleProduct = () => {
     const dispatch = useDispatch()
     const {id} = useParams()
     const singleProduct = useSelector((state) => {
-        return state.singleProduct.singleProduct
+        return state.singleProductSlice.singleProduct
     })
 
     useEffect(() => {
@@ -16,9 +16,9 @@ const SingleProduct = () => {
 
     return (
         <div>
-            Hello world
             <img src={singleProduct.image_url}/>
-            <h1>${singleProduct.price}</h1>
+            <h1>{singleProduct.name}</h1>
+            <h1>{singleProduct.price}</h1>
             <h2>{singleProduct.description}</h2>
             <h3>{singleProduct.quantity}</h3> 
         </div>
