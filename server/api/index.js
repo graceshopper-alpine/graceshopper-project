@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Product = require("../db/models");
+const {Product} = require("../db");
 
 router.use("/users", require("./users"));
 
