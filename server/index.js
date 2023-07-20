@@ -9,7 +9,7 @@ const init = async () => {
       await seed();
     }
     else {
-      await db.sync()
+      await db.sync({ force: true })
     }
     // start listening (and create a 'server' object representing our server)
     app.listen(PORT, () => console.log(`Mixing it up on port ${PORT}`))
