@@ -2,6 +2,7 @@ const router = require("express").Router();
 const {Product} = require("../db");
 
 router.use("/users", require("./users"));
+router.use("/sessions", require("./sessions"));
 
 router.use((req, res, next) => {
   const error = new Error("Not Found");
