@@ -9,6 +9,7 @@ const init = async () => {
       await seed();
     }
     else {
+      await seed();
       await db.sync({ force: true })
     }
     // start listening (and create a 'server' object representing our server)

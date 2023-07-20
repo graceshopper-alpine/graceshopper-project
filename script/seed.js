@@ -1,6 +1,13 @@
 'use strict'
 
-const {db, models: {User} } = require('../server/db')
+const {db, models: {User,Product,Order,Session,OrderItem} } = require('../server/db')
+const products = require('./seedData/products')
+const users = require('./seedData/users')
+const sessions = require('./seedData/sessions')
+const orderItems = require('./seedData/order_items')
+const orders = require('./seedData/orders')
+
+
 
 /**
  * seed - this function clears the database, updates tables to
@@ -11,10 +18,21 @@ async function seed() {
   console.log('db synced!')
 
   // Creating Users
-  const users = await Promise.all([
-    User.create({ username: 'cody', password: '123' }),
-    User.create({ username: 'murphy', password: '123' }),
-  ])
+  await User.bulkCreate(users);
+
+  // Creating Products
+  await Product.bulkCreate(products);
+
+  // Creating Sessions
+  await Session.bulkCreate(sessions);
+
+  // Creating Orders
+  await Order.bulkCreate(orders);
+
+  // Creating Order Items
+  await OrderItem.bulkCreate(orderItems);
+
+
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
@@ -56,3 +74,4 @@ if (module === require.main) {
 
 // we export the seed function for testing purposes (see `./seed.spec.js`)
 module.exports = seed
+
