@@ -1,8 +1,8 @@
 //import all necessary things
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { getAllProducts } from "../store/productsSlice";
+import Product from "./Product";
 
 const Products = () => {
   const dispatch = useDispatch(); // used to dispatch the action
@@ -13,21 +13,11 @@ const Products = () => {
   }, []);
 
   return (
-    <div>
-      {products && products.length ? (
-        products.map((product) => (
-          <Link to={`/products/${product.id}`} key={`Product: ${product.id}`}>
-            <div className="product-section">
-              <img src={product.image_url} alt={product.name} />
-              <p>{product.name}</p>
-              <p>{product.price}</p>
-            </div>
-          </Link>
-        ))
-      ) : (
-        <p>No Products Available.</p>
-      )}
-    </div>
+    <>
+      {products.map((p) => {
+        <Product product={p} key={`Product: ${p.id}`} />;
+      })}
+    </>
   );
 };
 
