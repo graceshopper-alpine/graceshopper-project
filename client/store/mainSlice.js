@@ -4,6 +4,7 @@ const initialState = {
     userId: '',
     cartId: '',
     sessionId: '',
+    cart: [],
 }
 
 const mainSlice = createSlice({
@@ -18,6 +19,9 @@ const mainSlice = createSlice({
         },
         setSessionId: (state, action) => {
             state.sessionId = action.payload
+        },
+        setCart: (state, action) => {
+            state.cart = action.payload
         }
     }
 })
