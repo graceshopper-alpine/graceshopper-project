@@ -25,11 +25,3 @@ if(process.env.DATABASE_URL){
 const db = new Sequelize(
   process.env.DATABASE_URL || `postgres://localhost:5432/${databaseName}`, config)
 module.exports = db
-
-
-const sequelize = new Sequelize('graceshopper_pbq6', 'graceshopper_pbq6_user', '1p5nDUcVlsNA50HEOccXXqRJv6WjqcDy', {
-  host: 'localhost',
-  dialect: 'postgres'
-}) 
-
-module.exports = sequelize
