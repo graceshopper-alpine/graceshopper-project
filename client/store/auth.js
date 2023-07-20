@@ -40,6 +40,8 @@ export const authenticate = (username, password, method) => async dispatch => {
 
 export const logout = () => {
   window.localStorage.removeItem(TOKEN)
+  //remove session_id, too
+  window.localStorage.removeItem('session_id')
   history.push('/login')
   return {
     type: SET_AUTH,

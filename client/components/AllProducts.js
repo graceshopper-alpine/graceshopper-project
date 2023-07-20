@@ -12,10 +12,6 @@ const Products = () => {
     dispatch(getAllProducts());
   }, []);
 
-  useEffect(() => {
-    console.log(products);
-  }, [products]);
-
   return (
     <div className="products-container">
       {products.map((p) => {

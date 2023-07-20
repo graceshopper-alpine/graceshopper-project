@@ -11,11 +11,12 @@ const SingleProduct = () => {
         return state.singleProductSlice.singleProduct
     })
 
-    const sessionId = localStorage.getItem('session_id')
+    const sessionId = useSelector((state) => state.main.sessionId)
 
     useEffect(() => {
         dispatch(fetchSingleProduct(id))
     }, [dispatch, id])
+    
 
     const addToCart = async (id) => {
         try {
@@ -23,11 +24,20 @@ const SingleProduct = () => {
                 'productId': id,
                 'sessionId': sessionId 
             })
+            
             cartId = cartId.data.cartId;
             dispatch({
                 type: 'main/setCartId',
                 payload: cartId
             })
+
+            let cart = await axios.get(`/api/sessions/${sessionId}/cart`)
+            cart = cart.data.order_items
+            dispatch({
+                type: 'main/setCart',
+                payload: cart
+            })
+
         } catch (err) {
             if(err.response && err.response.data) {
                 console.log(err.response.data)
