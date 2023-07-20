@@ -10,11 +10,28 @@ const App = () => {
 
   const dispatch = useDispatch()
   const userId = useSelector(state => state.auth.id)
+  const cartId = useSelector(state => state.main.cartId)
+
 
   useEffect(() => {
+    //when the user logs out, reset the cart & cart ID in redux
+    if (!userId) {
+        dispatch({
+          type: 'main/setCart',
+          payload: []
+        })
 
+        dispatch({
+          type: 'main/setCartId',
+          payload: ''
+        })
+    }
+  }, [userId])
+
+  useEffect(() => {
     // if there is no session id in local storage, create one and save ID to redux store. 
     // if there is a session id in local storage, update it so it points to the current user.
+    // then, check if there is a cart for the current session and save the cart id to redux store
     // run this function on page load and when the userId changes (when user logs in)
     const sessionId = localStorage.getItem('session_id')
     if (!sessionId) {
@@ -33,16 +50,41 @@ const App = () => {
     
     else if (sessionId) {
       const updateSession = async () => {
-        console.log('updating session')
         const res = await axios.put ('/api/sessions/update', {
           'id': sessionId,
           'userId': userId
         })
-      }
-      updateSession();
-    }
 
-  }, [dispatch, userId])
+        if(res.data.id){
+            dispatch({
+            type: 'main/setSessionId',
+            payload: res.data.id
+          })
+        }
+      }    
+
+      const getCartFromSession = async () => {
+        const res = await axios.get (`api/sessions/${sessionId}/cart`)
+        
+        if (res.data.id) {
+          dispatch({
+            type: 'main/setCartId',
+            payload: res.data.id
+          })
+
+          dispatch({
+            type: 'main/setCart',
+            payload: res.data.order_items
+          })
+
+        }
+      }
+
+      updateSession().then(getCartFromSession)
+
+  }
+
+  }, [dispatch, userId, cartId])
 
 
   return (
