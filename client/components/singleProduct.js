@@ -16,6 +16,7 @@ const SingleProduct = () => {
 
     return (
         <div>
+            Hello world
             <img src={singleProduct.image_url}/>
             <h1>${singleProduct.price}</h1>
             <h2>{singleProduct.description}</h2>
