@@ -17,7 +17,7 @@ const SingleProduct = () => {
     return (
         <div>
             <img src={singleProduct.image_url}/>
-            <h1>{singleProduct.price}</h1>
+            <h1>${singleProduct.price}</h1>
             <h2>{singleProduct.description}</h2>
             <h3>{singleProduct.quantity}</h3> 
         </div>
