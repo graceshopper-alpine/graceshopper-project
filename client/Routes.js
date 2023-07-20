@@ -3,8 +3,9 @@ import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";
-import Products from "./components/AllProducts";
 import { me } from "./store";
+import Products from "./components/AllProducts";
+import SingleProduct from "./components/singleProduct";
 
 /**
  * COMPONENT
@@ -23,6 +24,7 @@ class Routes extends Component {
           <Switch>
             <Route path="/home" component={Home} />
             <Route path="/products" component={<Products />} />
+            <Route path="/singleProducts/:id" element={<SingleProduct />} />
             <Redirect to="/home" />
           </Switch>
         ) : (
