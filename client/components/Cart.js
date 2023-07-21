@@ -114,7 +114,7 @@ const Cart = () => {
 
     else {
         return (
-            <div>
+            <div className="cart-empty">
                 <h1 className="fancy-font">Your Cart</h1>
                 <p>Looks like your cart is empty.</p>
                 <Link to="/products">Continue Shopping.</Link>

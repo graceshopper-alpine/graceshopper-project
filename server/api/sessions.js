@@ -44,7 +44,7 @@ const {
             ]
         });
 
-        //if there is no cart for the given session, look for carts from other sessions
+        //if there is no cart for the given session, look for carts from other sessions for this user
         if (!cart) {
             
            const user = await User.findOne({
