@@ -76,7 +76,7 @@ const Cart = () => {
                             return (
                             <>
                             <div key={`Product: ${p.id}`} className="cart-item">
-                                <img src={p.product.image_url}></img>
+                                <img src={`https://picsum.photos/seed/${p.product.id}/200`}></img>
                                 
                                 <div className="cart-item-details">
                                     <h2>{p.product.name}</h2>

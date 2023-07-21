@@ -37,17 +37,16 @@ form div {
 .product-list-container {
   flex: 1 0 calc(20% - 10px);
   background-color: #EDEDED;
+  color: black;
   display: block;
   text-align: center;
   text-decoration: none;
-  color: red;
   border: none;
   padding: 10px;
   border-radius: 5px;
   /* width: 150px;
   height: 200px; */
-  margin-top: 30px;
-  margin-left: 30px;
+  margin: 15px;
   padding: 40px;
   transition: background-color 0.3s ease;
 }
@@ -60,18 +59,23 @@ form div {
 }
 
 .product-list-container h3 {
-  color: black !important;
   font-family: 'montserrat';
-  font-weight: 400;
+  font-weight: bold;
   font-size: 15px;
   padding: none;
   margin:none;
   margin-bottom: 1px;
 }
 
+
+.product-list-container:hover{
+  color: blue;
+}
+
 .product-list-item-details{
   display: flex;
   justify-content: space-between;
+  max-width: 240px;
 }
 .product-section p {
   font-size: 15px;
@@ -170,7 +174,7 @@ form div {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 60%;
+  width: 70%;
   max-width: 700px;
   min-width: 350px;
 }
@@ -193,7 +197,6 @@ form div {
 }
 
 .cart-item *{
-  flex: 1;
   text-align: right;
 }
 
@@ -205,8 +208,13 @@ form div {
 }
 
 .cart-item-details{
+  flex: 2;
   display: flex;
   flex-direction: column;
+}
+
+.cart-item h3{
+  flex: 1;
 }
 
 .cart-item-details h2{
@@ -241,9 +249,33 @@ form div {
 }
 
 .cart-summary{
+  display: block;
+  margin: 0 auto;
   margin-top: 20px;
   background-color: #EDEDED;
   width: 40%;
   height: fit-content;
   padding: 50px;
 }
+
+.cart-summary * {
+  width: fit-content;
+  height: fit-content
+}
+
+
+/* nav styling */
+
+nav h2{
+  display: inline
+}
+
+nav a {
+  color: black;
+  font-weight: 400;
+}
+
+nav a:hover{
+  color: blue;
+  font-weight: 600;
+} 
