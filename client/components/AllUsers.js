@@ -6,10 +6,11 @@ import { getAllUsers } from "../store/adminUsersSlice";
 const UserList = () => {
     const dispatch = useDispatch()
     const users = useSelector((state) => state.usersSlice.allUsers)
+    const isAdmin = useSelector((state) => state.main.isAdmin)
 
     useEffect(() => {
         dispatch(getAllUsers())
-    }, [dispatch])
+    }, [dispatch, isAdmin])
 
     const handleClick = (id) => {
         window.location = `/users/${id}`

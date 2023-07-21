@@ -14,7 +14,7 @@ const App = () => {
 
 
   useEffect(() => {
-    // when the user logs in, set isAdmin to true if needed
+    // when the user logs in, set isAdmin to true in redux if needed.
     if (userId) {
       const getUserSetAdmin = async () => {
         const {data} = await axios.get(`/api/users/${userId}`)
