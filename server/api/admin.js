@@ -6,9 +6,10 @@ const { User, Order, Product, OrderItem, Session } = models;
 async function authenticateUser(req, res, next) {
   const authHeader = req.headers.authorization;
   if (authHeader) {
-    const token = authHeader.split(' ')[1];
+    const token = authHeader;
     try {
       const user = await User.findByToken(token);
+      console.log(user.username)
       req.user = user;
     } catch (error) {
       console.log(error);
@@ -29,7 +30,7 @@ function adminOnly(req, res, next) {
 router.use(authenticateUser);
 
 // Get all users (admin only)
-router.get('/', adminOnly, async (req, res, next) => {
+router.get('/users', adminOnly, async (req, res, next) => {
   try {
     //get all users
     const users = await User.findAll({
@@ -37,7 +38,7 @@ router.get('/', adminOnly, async (req, res, next) => {
       include: [
         {
             model: Session,
-            attributes: ['sessionId'], 
+            attributes: ['id'], 
             include: [
                 {
                     model: Order,
@@ -62,14 +63,14 @@ router.get('/', adminOnly, async (req, res, next) => {
 });
 
 // Get user by ID (admin only)
-router.get('/:id', adminOnly, async (req, res, next) => {
+router.get('/users/:id', adminOnly, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id, {
         attributes: ['id', 'username', 'isAdmin'],
         include: [
           {
               model: Session,
-              attributes: ['sessionId'], 
+              attributes: ['id'], 
               include: [
                   {
                       model: Order,
@@ -98,15 +99,11 @@ router.get('/:id', adminOnly, async (req, res, next) => {
 });
 
 // Get products in cart of user by ID (admin only)
-router.get('/:id/order', adminOnly, async (req, res, next) => {
+router.get('/users/:id/cart', adminOnly, async (req, res, next) => {
   try {
     const order = await Order.findOne({
-      where: { userId: req.params.id },
+      where: { userId: req.params.id, status: 'cart' },
       include: [
-        {
-            model: Order,
-            attributes: ['status', 'completedAt'],
-            include: [
                 {
                     model: OrderItem, 
                     attributes: ['quantity'],
@@ -116,7 +113,6 @@ router.get('/:id/order', adminOnly, async (req, res, next) => {
                             attributes: ['name', 'price', 'image_url', 'description', 'category']
                         }]
                 }]
-        }],
     });
     if (!order) {
       res.sendStatus(404);
