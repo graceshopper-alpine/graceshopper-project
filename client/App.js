@@ -18,12 +18,10 @@ const App = () => {
     if (userId) {
       const getUserSetAdmin = async () => {
         const {data} = await axios.get(`/api/users/${userId}`)
-        if (data.isAdmin) {
           dispatch({
             type: 'main/setAdmin',
-            payload: true
+            payload: data.isAdmin
           })
-        }
       }
       getUserSetAdmin()
     }
