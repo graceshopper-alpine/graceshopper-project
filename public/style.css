@@ -48,8 +48,12 @@ form div {
   /* width: 150px;
   height: 200px; */
   margin: 15px;
-  padding: 40px;
+  padding: 50px;
+  border-radius: 0px 90px 0px 90px;
+
   transition: background-color 0.3s ease;
+  transition: border-radius 0.3s ease;
+
 }
 
 .product-list-container img{
@@ -71,6 +75,8 @@ form div {
 
 .product-list-container:hover{
   color: blue;
+  font-style: italic;
+  border-radius: 90px 0px 90px 0px;
 }
 
 .product-list-item-details{
@@ -279,4 +285,5 @@ nav a {
 nav a:hover{
   color: blue;
   font-weight: 600;
+  text-decoration: orange wavy underline;
 } 

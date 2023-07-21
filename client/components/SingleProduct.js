@@ -58,15 +58,20 @@ const SingleProduct = () => {
         <h2 className="product-description">{singleProduct.description}</h2>
         <h1 className="product-price">{singleProduct.price}</h1>
         {/* only show low quantity alert if q <5 */}
-        {singleProduct.quantity<=5 && <h3 className="product-quantity">
+        {singleProduct.quantity<=5 && singleProduct.quantity >0 && <h3 className="product-quantity">
           Only {singleProduct.quantity} left in stock - Order soon
         </h3>}
-        <button
+        {/* if out of stock, show that */}
+        {singleProduct.quantity<=0 && <h3 className="product-quantity">
+        Out of stock - Check back soon
+        </h3>}
+        {/* only show add-to-cart if in stock */}
+        {singleProduct.quantity>0 && <button
           className="addcart-button"
           onClick={() => addToCart(singleProduct.id)}
         >
           Add To Cart
-        </button>
+        </button>}
       </div>
     </div>
   );
