@@ -7,6 +7,7 @@ import { me } from "./store";
 import Products from "./components/AllProducts";
 import SingleProduct from "./components/SingleProduct";
 import Cart from "./components/Cart";
+import Checkout from "./components/Checkout";
 
 /**
  * COMPONENT
@@ -27,6 +28,7 @@ class Routes extends Component {
             <Route path="/products/:id" component={SingleProduct} />
             <Route path="/products" component={Products} />
             <Route path="/cart" component={Cart} />
+            <Route path="/checkout" component={Checkout} />
             <Redirect to="/products" />
           </Switch>
         ) : (
