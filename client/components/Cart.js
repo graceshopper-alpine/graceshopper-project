@@ -70,7 +70,7 @@ const Cart = () => {
             <div className="cart-page">
 
                 <div className="cart-container">
-                        <h1>Your Cart</h1>
+                        <h1 className="fancy-font">Your Cart</h1>
 
                         {cart.toSorted((a, b)=> a.id - b.id).map((p) => {
                             return (
@@ -101,8 +101,8 @@ const Cart = () => {
                 </div>
 
                 <div className="cart-summary">
-                    <h2>Subtotal</h2>
-                    <h2>{'$' + cart.reduce((a, b) => a + (parseFloat(b.product.price.replace('$', '')) * parseInt(b.quantity)), 0).toFixed(2)}</h2>
+                    <h1 className="fancy-font">Subtotal</h1>
+                    <h3>{'$' + cart.reduce((a, b) => a + (parseFloat(b.product.price.replace('$', '')) * parseInt(b.quantity)), 0).toFixed(2)}</h3>
                     {/* on click redirect to checkout route */}
                     <button onClick={()=> window.location.href='/checkout'}>Checkout</button>
                 </div>
@@ -115,7 +115,7 @@ const Cart = () => {
     else {
         return (
             <div>
-                <h1>Your Cart</h1>
+                <h1 className="fancy-font">Your Cart</h1>
                 <p>Looks like your cart is empty.</p>
                 <Link to="/products">Continue Shopping.</Link>
             </div>

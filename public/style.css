@@ -274,7 +274,8 @@ form div {
 /* nav styling */
 
 nav h2{
-  display: inline
+  display: inline;
+  font-family: "Room 205";
 }
 
 nav a {
@@ -287,3 +288,10 @@ nav a:hover{
   font-weight: 600;
   text-decoration: orange wavy underline;
 } 
+
+
+/* Other header styling */
+
+.fancy-font{
+  font-family: "Room 205";
+}
