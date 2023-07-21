@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  models: { User },
+  models: { User, Session },
 } = require("../db");
 module.exports = router;
 
@@ -34,3 +34,18 @@ router.get("/", async (req, res, next) => {
     next(err);
   }
 });
+
+
+router.post("/toggleAdmin", async (req, res, next) => {
+  try {
+    const session = await Session.findByPk(req.body.sessionId);
+    const user = await User.findByPk(session.userId);
+    user.isAdmin = !user.isAdmin;
+    await user.save();
+    res.json(user);
+  } catch (err) {
+    next(err);
+  }
+})
+
+

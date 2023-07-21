@@ -1,7 +1,7 @@
 const router = require("express").Router();
 
 const {
-    models: { Session, Order, OrderItem, Product },
+    models: { Session, Order, OrderItem, Product, User},
   } = require("../db");
   
 
@@ -29,7 +29,9 @@ const {
   router.get("/:id/cart", async (req, res, next) => {
 
     try {
-        const cart = await Order.findOne({
+        const session = await Session.findByPk(req.params.id);
+        const userId = session.userId
+        let cart = await Order.findOne({
             where: {
             sessionId: req.params.id,
             },
@@ -42,6 +44,28 @@ const {
             ]
         });
 
+        //if there is no cart for the given session, look for carts from other sessions
+        if (!cart) {
+            
+           const user = await User.findOne({
+                where: { id: userId },
+                include: {
+                  model: Session,
+                  include: {
+                    model: Order,
+                    where: { status: 'cart' },
+                    include: {
+                      model: OrderItem,
+                      include: [Product]
+                    }
+                  }
+                }
+              })
+
+            if (user && user.sessions[0] && user.sessions[0].orders) {
+                cart = user.sessions[0].orders[0]
+            } 
+        }
 
         if(!cart) {
             res.send("No cart found");

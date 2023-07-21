@@ -10,10 +10,11 @@ const User = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const user = useSelector((state) => state.userSlice.user)
+    const isAdmin = useSelector((state) => state.main.isAdmin)
 
     useEffect(() => {
         dispatch(getUser(id))
-    }, [id])
+    }, [id, isAdmin])
 
 
     if (user.sessions) {
