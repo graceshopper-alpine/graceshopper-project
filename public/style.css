@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  background-color: #FBFAF3;
 }
 
 a {
@@ -18,4 +19,279 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+.content-container{
+  display: block;
+  margin: 0 auto;
+}
+
+.products-container {
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+
+.product-list-container {
+  flex: 1 0 calc(20% - 10px);
+  background-color: #EDEDED;
+  color: black;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  padding: 10px;
+  border-radius: 0px;
+  /* width: 150px;
+  height: 200px; */
+  margin: 15px;
+  padding: 50px;
+  border-radius: 0px 90px 0px 90px;
+
+  transition: background-color 0.3s ease;
+  transition: border-radius 0.3s ease;
+
+}
+
+.product-list-container img{
+  width: 100%;
+  min-width: 240px;
+  height: 26vh;
+  margin-bottom: 5px;
+}
+
+.product-list-container h3 {
+  font-family: 'montserrat';
+  font-weight: bold;
+  font-size: 12px;
+  padding: none;
+  margin:none;
+  margin-bottom: 1px;
+}
+
+
+.product-list-container:hover{
+  color: blue;
+  font-style: italic;
+  border-radius: 90px 0px 90px 0px;
+}
+
+.product-list-item-details{
+  display: flex;
+  justify-content: space-between;
+  max-width: 240px;
+}
+.product-section p {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.single-product-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  height: 60vh;
+
+}
+
+/* Container for the product image */
+.single-product-image {
+  flex: 1;
+  margin: 20px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+/* Styles for the product image */
+.single-product-image img {
+  display: block;
+  max-width: 100%;
+  max-height: 400px;
+  height: 70%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Container for the product details */
+.single-product-details {
+  flex: 1;
+  max-width: 40%;
+  margin: 20px;
+  margin-right: 100px;
+}
+
+/* Product name styling */
+.product-name {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Product price styling */
+.product-price {
+  font-size: 20px;
+  color: firebrick;
+  margin-bottom: 15px;
+}
+
+/* Product description styling */
+.product-description {
+  font-size: 10px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* Product quantity styling */
+.product-quantity {
+  font-size: 20px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* Add To Cart button styling */
+.add-to-cart-btn {
+  background-color: #f0c14b;
+  color: #1d1d1d;
+  padding: 10px 20px;
+  font-size: 1.4rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+/* cart page styling */
+
+.cart-page{
+  width:100%;
+  display: flex;
+}
+
+.cart-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 70%;
+  max-width: 700px;
+  min-width: 350px;
+}
+
+.cart-container h1{
+  width: 90%;
+}
+
+.cart-container hr{
+  width: 90%;
+  margin-bottom: 15px;
+}
+
+.cart-item{
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.cart-item *{
+  text-align: right;
+}
+
+.cart-item img{
+  flex: 0 ;
+  width: 100px;
+  height: 100px;
+  margin-right: 40px;
+}
+
+.cart-item-details{
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-item h3{
+  flex: 1;
+}
+
+.cart-item-details h2{
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.cart-item-details p{
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.cart-item-details *{
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.quantity-span{
+  display: flex;
+  align-items: right !important; 
+  width: 100%;
+  text-align: right;
+}
+
+.quantity-span *{
+  flex: 1 !important;
+  text-align: center !important
+}
+
+.quantity-span i:hover{
+  cursor: pointer;
+}
+
+.cart-summary{
+  display: block;
+  margin: 0 auto;
+  margin-top: 20px;
+  background-color: #EDEDED;
+  width: 40%;
+  height: fit-content;
+  padding: 50px;
+}
+
+.cart-summary * {
+  width: fit-content;
+  height: fit-content
+}
+
+
+/* nav styling */
+
+nav h2{
+  display: inline;
+  font-family: "Room 205";
+}
+
+nav a {
+  color: black;
+  font-weight: 400;
+}
+
+nav a:hover{
+  color: blue;
+  font-weight: 600;
+  text-decoration: orange wavy underline;
+} 
+
+
+/* Other header styling */
+
+.fancy-font{
+  font-family: "Room 205";
 }

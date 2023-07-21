@@ -5,7 +5,8 @@ import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";
 import { me } from "./store";
 import Products from "./components/AllProducts";
-import SingleProduct from "./components/singleProduct";
+import SingleProduct from "./components/SingleProduct";
+import Cart from "./components/Cart";
 
 /**
  * COMPONENT
@@ -19,13 +20,14 @@ class Routes extends Component {
     const { isLoggedIn } = this.props;
 
     return (
-      <div>
+      <div className="content-container">
         {isLoggedIn ? (
           <Switch>
             <Route path="/home" component={Home} />
-            <Route path="/products/:id" element={SingleProduct} />
+            <Route path="/products/:id" component={SingleProduct} />
             <Route path="/products" component={Products} />
-            <Redirect to="/home" />
+            <Route path="/cart" component={Cart} />
+            <Redirect to="/products" />
           </Switch>
         ) : (
           <Switch>
