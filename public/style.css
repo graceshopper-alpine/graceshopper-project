@@ -171,6 +171,19 @@ form div {
 
 /* cart page styling */
 
+.cart-empty{
+  margin-left: 40px;
+}
+
+.cart-empty a{
+  color: blue;
+}
+
+.cart-empty a:hover{
+  font-style: italic;
+}
+
+
 .cart-page{
   width:100%;
   display: flex;
