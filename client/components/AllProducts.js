@@ -17,18 +17,22 @@ const Products = () => {
     // This will desaturate the color by blending with a neutral gray
     const desaturationMix = [200, 200, 200];
 
-    const base = [Math.floor(Math.random()*256), Math.floor(Math.random()*256), Math.floor(Math.random()*256)];
+    const base = [
+      Math.floor(Math.random() * 256),
+      Math.floor(Math.random() * 256),
+      Math.floor(Math.random() * 256),
+    ];
     let color = [];
 
-    for(let i=0; i<3; i++) {
-        // First, create the pastel version of the color
-        let pastelColor = (base[i] + pastelMix[i]) / 2;
-        // Then, desaturate it slightly
-        color[i] = Math.floor((pastelColor + desaturationMix[i]) / 2);
+    for (let i = 0; i < 3; i++) {
+      // First, create the pastel version of the color
+      let pastelColor = (base[i] + pastelMix[i]) / 2;
+      // Then, desaturate it slightly
+      color[i] = Math.floor((pastelColor + desaturationMix[i]) / 2);
     }
-    
+
     return `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
-}
+  }
 
   return (
     <div className="products-container">

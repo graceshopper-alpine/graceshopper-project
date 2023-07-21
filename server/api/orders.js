@@ -135,14 +135,22 @@ router.post("/cartremove", async (req, res, next) => {
 
 //checkout cart
 router.put("/checkout", async (req, res, next) => {
+  // check if there is a current cart for the sessionId
   try {
-    const ordersInCart = await Order.findAll({
+    const cart = await Order.findOne({
       where: {
-        status: ["cart", "placed"],
+        sessionId: req.body.sessionId,
+        status: "cart",
       },
     });
-    await order.update({ status: "placed" });
-    await order.update({ completedAt: new Date() });
+
+    // if went directly to /checkout no cart, throw error
+    if (!cart) {
+      throw new Error("No cart found for the provided session ID");
+    }
+
+    await cart.update({ status: "placed" });
+    await cart.update({ completedAt: new Date() });
     res.sendStatus(200);
   } catch (error) {
     next(error);
