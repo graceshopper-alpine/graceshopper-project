@@ -38,11 +38,11 @@ router.get('/users', adminOnly, async (req, res, next) => {
       include: [
         {
             model: Session,
-            attributes: ['id'], 
+            attributes: ['id', 'createdAt', 'updatedAt'], 
             include: [
                 {
                     model: Order,
-                    attributes: ['status', 'completedAt'],
+                    attributes: ['status', 'completedAt', 'createdAt', 'updatedAt'],
                     include: [
                         {
                             model: OrderItem, 
@@ -70,19 +70,19 @@ router.get('/users/:id', adminOnly, async (req, res, next) => {
         include: [
           {
               model: Session,
-              attributes: ['id'], 
+              attributes: ['id', 'createdAt', 'updatedAt'], 
               include: [
                   {
                       model: Order,
-                      attributes: ['status', 'completedAt'],
+                      attributes: ['id', 'status', 'completedAt', 'createdAt', 'updatedAt'],
                       include: [
                           {
                               model: OrderItem, 
-                              attributes: ['quantity'],
+                              attributes: ['id', 'quantity', 'createdAt', 'updatedAt'],
                               include: [
                                   {
                                       model: Product, 
-                                      attributes: ['name', 'price', 'image_url', 'description', 'category']
+                                      attributes: ['id', 'name', 'price', 'image_url', 'description', 'category']
                                   }]
                           }]
                   }]
