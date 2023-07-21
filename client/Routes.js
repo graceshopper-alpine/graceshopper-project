@@ -20,14 +20,14 @@ class Routes extends Component {
     const { isLoggedIn } = this.props;
 
     return (
-      <div>
+      <div className="content-container">
         {isLoggedIn ? (
           <Switch>
             <Route path="/home" component={Home} />
             <Route path="/products/:id" component={SingleProduct} />
             <Route path="/products" component={Products} />
             <Route path="/cart" component={Cart} />
-            <Redirect to="/home" />
+            <Redirect to="/products" />
           </Switch>
         ) : (
           <Switch>
