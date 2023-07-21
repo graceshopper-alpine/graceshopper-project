@@ -77,7 +77,7 @@ const Checkout = () => {
           <tbody>
             <tr>
                 <td>{Cart.Product}</td>
-                <td>{Cart.Product.price}</td>
+                <td>{Cart.Product}</td>
                 <td>{Cart.quantity}</td>
                 <td>{Cart.total}</td>
             </tr>
