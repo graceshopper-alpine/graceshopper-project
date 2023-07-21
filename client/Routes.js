@@ -7,6 +7,8 @@ import { me } from "./store";
 import Products from "./components/AllProducts";
 import SingleProduct from "./components/SingleProduct";
 import Cart from "./components/Cart";
+import UserList from "./components/AllUsers";
+import User from "./components/User";
 
 /**
  * COMPONENT
@@ -27,6 +29,8 @@ class Routes extends Component {
             <Route path="/products/:id" component={SingleProduct} />
             <Route path="/products" component={Products} />
             <Route path="/cart" component={Cart} />
+            <Route path="/users/:id" component={User} />
+            <Route path="/users" component={UserList} />
             <Redirect to="/products" />
           </Switch>
         ) : (
