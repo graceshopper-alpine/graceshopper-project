@@ -83,19 +83,27 @@ form div {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+  height: 60vh;
+
 }
 
 /* Container for the product image */
 .single-product-image {
   flex: 1;
-  max-width: 400px;
   margin: 20px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
 }
 
 /* Styles for the product image */
 .single-product-image img {
+  display: block;
   max-width: 100%;
-  height: auto;
+  max-height: 400px;
+  height: 70%;
   border: 1px solid #ddd;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -104,8 +112,9 @@ form div {
 /* Container for the product details */
 .single-product-details {
   flex: 1;
-  max-width: 400px;
+  max-width: 40%;
   margin: 20px;
+  margin-right: 100px;
 }
 
 /* Product name styling */
@@ -146,4 +155,95 @@ form div {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+
+/* cart page styling */
+
+.cart-page{
+  width:100%;
+  display: flex;
+}
+
+.cart-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+  max-width: 700px;
+  min-width: 350px;
+}
+
+.cart-container h1{
+  width: 90%;
+}
+
+.cart-container hr{
+  width: 90%;
+  margin-bottom: 15px;
+}
+
+.cart-item{
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.cart-item *{
+  flex: 1;
+  text-align: right;
+}
+
+.cart-item img{
+  flex: 0 ;
+  width: 100px;
+  height: 100px;
+  margin-right: 40px;
+}
+
+.cart-item-details{
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-item-details h2{
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.cart-item-details p{
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.cart-item-details *{
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.quantity-span{
+  display: flex;
+  align-items: right !important; 
+  width: 100%;
+  text-align: right;
+}
+
+.quantity-span *{
+  flex: 1 !important;
+  text-align: center !important
+}
+
+.quantity-span i:hover{
+  cursor: pointer;
+}
+
+.cart-summary{
+  margin-top: 20px;
+  background-color: #EDEDED;
+  width: 40%;
+  height: fit-content;
+  padding: 50px;
 }

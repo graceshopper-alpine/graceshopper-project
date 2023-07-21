@@ -36,6 +36,9 @@ const SingleProduct = () => {
         type: "main/setCart",
         payload: cart,
       });
+
+       //this refreshes the quantity of the product in redux when we add to cart
+      dispatch(fetchSingleProduct(id))
     } catch (err) {
       if (err.response && err.response.data) {
         console.log(err.response.data);
@@ -51,18 +54,19 @@ const SingleProduct = () => {
         <img src={singleProduct.image_url} />
       </div>
       <div className="single-product-details">
+        <h1 className="product-name">{singleProduct.name}</h1>
+        <h1 className="product-price">{singleProduct.price}</h1>
+        <h2 className="product-description">{singleProduct.description}</h2>
+        {/* only show low quantity alert if q <5 */}
+        {singleProduct.quantity<=5 && <h3 className="product-quantity">
+          Only {singleProduct.quantity} left in stock - Order soon
+        </h3>}
         <button
           className="addcart-button"
           onClick={() => addToCart(singleProduct.id)}
         >
           Add To Cart
         </button>
-        <h1 className="product-name">{singleProduct.name}</h1>
-        <h1 className="product-price">{singleProduct.price}</h1>
-        <h2 className="product-description">{singleProduct.description}</h2>
-        <h3 className="product-quantity">
-          "Only {singleProduct.quantity} left in stock - Order soon"
-        </h3>
       </div>
     </div>
   );
