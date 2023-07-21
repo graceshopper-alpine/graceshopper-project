@@ -5,6 +5,7 @@ const initialState = {
     cartId: '',
     sessionId: '',
     cart: [],
+    isAdmin: false
 }
 
 const mainSlice = createSlice({
@@ -22,10 +23,13 @@ const mainSlice = createSlice({
         },
         setCart: (state, action) => {
             state.cart = action.payload
+        },
+        setAdmin: (state, action) => {
+            state.isAdmin = action.payload
         }
     }
 })
 
-export const { setUserId, setCartId, setSessionId } = mainSlice.actions
+export const { setUserId, setCartId, setSessionId, setCart, setAdmin } = mainSlice.actions
 export default mainSlice.reducer
 

@@ -15,9 +15,6 @@ const User = () => {
         dispatch(getUser(id))
     }, [id])
 
-    useEffect(() => {
-        console.log(user)
-    }, [user])
 
     if (user.sessions) {
         return (

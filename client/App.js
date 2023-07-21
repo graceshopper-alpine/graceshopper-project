@@ -14,6 +14,23 @@ const App = () => {
 
 
   useEffect(() => {
+    // when the user logs in, set isAdmin to true if needed
+    if (userId) {
+      const getUserSetAdmin = async () => {
+        const {data} = await axios.get(`/api/users/${userId}`)
+        if (data.isAdmin) {
+          dispatch({
+            type: 'main/setAdmin',
+            payload: true
+          })
+        }
+      }
+      getUserSetAdmin()
+    }
+  }, [userId])
+
+
+  useEffect(() => {
     //when the user logs out, reset the cart & cart ID in redux
     if (!userId) {
         dispatch({
