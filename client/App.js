@@ -46,7 +46,7 @@ const App = () => {
   useEffect(() => {
     // if there is no session id in local storage, create one and save ID to redux store. 
     // if there is a session id in local storage, update it so it points to the current user.
-    // then, check if there is a cart for the current session and save the cart id to redux store
+    // then, check if there is a cart for the current session and save the cart id and cart contents to redux store
     // run this function on page load and when the userId changes (when user logs in)
     const sessionId = localStorage.getItem('session_id')
     if (!sessionId) {
@@ -79,6 +79,7 @@ const App = () => {
       }    
 
       const getCartFromSession = async () => {
+        //this backend route should also check if there is a cart for any other sessions for the user.
         const res = await axios.get (`api/sessions/${sessionId}/cart`)
         
         if (res.data.id) {
