@@ -2,23 +2,31 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../store";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
-const Navbar = ({ handleClick, isLoggedIn }) => (
+const Navbar = ({ handleClick, isLoggedIn }) => {
+  
+  
+  const cart = useSelector((state) => state.main.cart);
+
+  return (
   <div>
-    <h1>FS-App-Template</h1>
     <nav>
+    
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
+          <Link to="/products"><h2>Grace Shopper</h2></Link>
           <Link to="/products">Products</Link>
-          <Link to="/cart">Cart</Link>
+          <Link to="/cart">{cart.length>0 ? `Cart (${cart.length})` : `Cart`}</Link>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
         </div>
       ) : (
         <div>
+          <h2>Grace Shopper</h2>
           {/* The navbar will show these links before you log in */}
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
@@ -27,7 +35,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
     </nav>
     <hr />
   </div>
-);
+)};
 
 /**
  * CONTAINER
