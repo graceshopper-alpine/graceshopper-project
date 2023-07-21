@@ -2,10 +2,16 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../store";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
-const Navbar = ({ handleClick, isLoggedIn }) => (
+const Navbar = ({ handleClick, isLoggedIn }) => {
+  
+  
+  const cart = useSelector((state) => state.main.cart);
+
+  return (
   <div>
-   
     <nav>
     
       {isLoggedIn ? (
@@ -13,7 +19,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           {/* The navbar will show these links after you log in */}
           <h2>Grace Shopper</h2>
           <Link to="/products">Products</Link>
-          <Link to="/cart">Cart</Link>
+          <Link to="/cart">{cart.length>0 ? `Cart (${cart.length})` : `Cart`}</Link>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
@@ -29,7 +35,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
     </nav>
     <hr />
   </div>
-);
+)};
 
 /**
  * CONTAINER

@@ -117,7 +117,7 @@ const Cart = () => {
             <div>
                 <h1>Your Cart</h1>
                 <p>Looks like your cart is empty.</p>
-                <Link to="/products">Add Some Products!</Link>
+                <Link to="/products">Continue Shopping.</Link>
             </div>
         );
     }
