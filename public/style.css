@@ -52,7 +52,6 @@ form div {
   margin: 15px 15px 0px 15px;
   padding: 20px;
   /* border-radius: 0px 90px 0px 90px; */
-  transition: background-color 0.3s ease;
   transition: border-radius 0.3s ease;
 }
 
@@ -80,17 +79,21 @@ form div {
 .product-list-container-outer{
   padding: 5px;
   border-radius: 10px;
+  transition: background-color 0.2s ease;
+  transition: box-shadow 0.1s ease;
+
 }
 
 .product-list-container-outer:hover{
-  box-shadow: 0 0px 5px rgb(0 0 0 / 0.2);
+  box-shadow: 0 0px 10px rgb(0 0 0 / 0.2);
   background-color: #FFD4A1;
 }
 
 
 .product-list-item-details{
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  justify-content:space-evenly;
   max-width: 300px;
   flex: 1 0 calc(20% - 10px);
   margin: 0px 15px 10px 15px;
