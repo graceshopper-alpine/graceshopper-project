@@ -4,11 +4,13 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { Link, Redirect } from "react-router-dom";
-import { canTreatArrayAsAnd } from "sequelize/types/utils";
 import Cart from "./Cart";
 import Product from "./Product";
 
 const Checkout = () => {
+
+  const cart = useSelector((state) => state.main.cart);
+
   return (
     <>
       <div>
@@ -76,10 +78,10 @@ const Checkout = () => {
           </thead>
           <tbody>
             <tr>
-                <td>{Cart.Product}</td>
-                <td>{Cart.Product}</td>
-                <td>{Cart.quantity}</td>
-                <td>{Cart.total}</td>
+                <td>{cart.Product}</td>
+                <td>{cart.Product}</td>
+                <td>{cart.quantity}</td>
+                <td>{cart.total}</td>
             </tr>
           </tbody>
         </table>
