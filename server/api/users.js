@@ -4,8 +4,6 @@ const {
 } = require("../db");
 module.exports = router;
 
-
-
 router.get("/:id", async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id, {
@@ -19,7 +17,6 @@ router.get("/:id", async (req, res, next) => {
     next(err);
   }
 });
-
 
 router.get("/", async (req, res, next) => {
   try {
@@ -35,7 +32,6 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-
 router.post("/toggleAdmin", async (req, res, next) => {
   try {
     const session = await Session.findByPk(req.body.sessionId);
@@ -46,6 +42,4 @@ router.post("/toggleAdmin", async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-})
-
-
+});

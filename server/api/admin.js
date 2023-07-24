@@ -1,5 +1,5 @@
-const router = require('express').Router();
-const { models } = require('../db');
+const router = require("express").Router();
+const { models } = require("../db");
 const { User, Order, Product, OrderItem, Session } = models;
 
 // Middleware to authenticate users based on token in request headers
@@ -9,7 +9,7 @@ async function authenticateUser(req, res, next) {
     const token = authHeader;
     try {
       const user = await User.findByToken(token);
-      console.log(user.username)
+      console.log(user.username);
       req.user = user;
     } catch (error) {
       console.log(error);
@@ -30,31 +30,41 @@ function adminOnly(req, res, next) {
 router.use(authenticateUser);
 
 // Get all users (admin only)
-router.get('/users', adminOnly, async (req, res, next) => {
+router.get("/users", adminOnly, async (req, res, next) => {
   try {
     //get all users
     const users = await User.findAll({
-      attributes: ['id', 'username', 'isAdmin'],
+      attributes: ["id", "username", "isAdmin"],
       include: [
         {
-            model: Session,
-            attributes: ['id', 'createdAt', 'updatedAt'], 
-            include: [
+          model: Session,
+          attributes: ["id", "createdAt", "updatedAt"],
+          include: [
+            {
+              model: Order,
+              attributes: ["status", "completedAt", "createdAt", "updatedAt"],
+              include: [
                 {
-                    model: Order,
-                    attributes: ['status', 'completedAt', 'createdAt', 'updatedAt'],
-                    include: [
-                        {
-                            model: OrderItem, 
-                            attributes: ['quantity'],
-                            include: [
-                                {
-                                    model: Product, 
-                                    attributes: ['name', 'price', 'image_url', 'description', 'category']
-                                }]
-                        }]
-                }]
-        }],
+                  model: OrderItem,
+                  attributes: ["quantity"],
+                  include: [
+                    {
+                      model: Product,
+                      attributes: [
+                        "name",
+                        "price",
+                        "image_url",
+                        "description",
+                        "category",
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
     });
     res.json(users);
   } catch (err) {
@@ -63,30 +73,47 @@ router.get('/users', adminOnly, async (req, res, next) => {
 });
 
 // Get user by ID (admin only)
-router.get('/users/:id', adminOnly, async (req, res, next) => {
+router.get("/users/:id", adminOnly, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id, {
-        attributes: ['id', 'username', 'isAdmin'],
-        include: [
-          {
-              model: Session,
-              attributes: ['id', 'createdAt', 'updatedAt'], 
+      attributes: ["id", "username", "isAdmin"],
+      include: [
+        {
+          model: Session,
+          attributes: ["id", "createdAt", "updatedAt"],
+          include: [
+            {
+              model: Order,
+              attributes: [
+                "id",
+                "status",
+                "completedAt",
+                "createdAt",
+                "updatedAt",
+              ],
               include: [
-                  {
-                      model: Order,
-                      attributes: ['id', 'status', 'completedAt', 'createdAt', 'updatedAt'],
-                      include: [
-                          {
-                              model: OrderItem, 
-                              attributes: ['id', 'quantity', 'createdAt', 'updatedAt'],
-                              include: [
-                                  {
-                                      model: Product, 
-                                      attributes: ['id', 'name', 'price', 'image_url', 'description', 'category']
-                                  }]
-                          }]
-                  }]
-          }],
+                {
+                  model: OrderItem,
+                  attributes: ["id", "quantity", "createdAt", "updatedAt"],
+                  include: [
+                    {
+                      model: Product,
+                      attributes: [
+                        "id",
+                        "name",
+                        "price",
+                        "image_url",
+                        "description",
+                        "category",
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
     });
     if (!user) {
       res.sendStatus(404);
@@ -99,20 +126,28 @@ router.get('/users/:id', adminOnly, async (req, res, next) => {
 });
 
 // Get products in cart of user by ID (admin only)
-router.get('/users/:id/cart', adminOnly, async (req, res, next) => {
+router.get("/users/:id/cart", adminOnly, async (req, res, next) => {
   try {
     const order = await Order.findOne({
-      where: { userId: req.params.id, status: 'cart' },
+      where: { userId: req.params.id, status: "cart" },
       include: [
-                {
-                    model: OrderItem, 
-                    attributes: ['quantity'],
-                    include: [
-                        {
-                            model: Product, 
-                            attributes: ['name', 'price', 'image_url', 'description', 'category']
-                        }]
-                }]
+        {
+          model: OrderItem,
+          attributes: ["quantity"],
+          include: [
+            {
+              model: Product,
+              attributes: [
+                "name",
+                "price",
+                "image_url",
+                "description",
+                "category",
+              ],
+            },
+          ],
+        },
+      ],
     });
     if (!order) {
       res.sendStatus(404);
