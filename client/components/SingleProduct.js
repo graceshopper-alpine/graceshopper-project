@@ -22,6 +22,10 @@ const SingleProduct = () => {
       let cartId = await axios.post("/api/orders/cartadd", {
         productId: id,
         sessionId: sessionId,
+      }, {
+        headers: {
+          "Authorization": localStorage.getItem("token")
+        }
       });
 
       cartId = cartId.data.cartId;
