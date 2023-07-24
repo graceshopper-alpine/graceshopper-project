@@ -4,7 +4,7 @@ const OrderItem = require("./OrderItem");
 
 const Order = db.define("order", {
   status: {
-    type: Sequelize.ENUM("cart", "placed"),
+    type: Sequelize.ENUM("cart", "placed", "merged"),
   },
   completedAt: {
     type: Sequelize.DATE,
