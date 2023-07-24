@@ -12,6 +12,7 @@ const SingleProduct = () => {
   });
 
   const sessionId = useSelector((state) => state.main.sessionId);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     dispatch(fetchSingleProduct(id));
@@ -19,12 +20,13 @@ const SingleProduct = () => {
 
   const addToCart = async (id) => {
     try {
+      console.log(token)
       let cartId = await axios.post("/api/orders/cartadd", {
         productId: id,
         sessionId: sessionId,
       }, {
         headers: {
-          "Authorization": localStorage.getItem("token")
+          "Authorization": token
         }
       });
 
