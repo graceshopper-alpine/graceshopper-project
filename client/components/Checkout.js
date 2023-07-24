@@ -1,63 +1,130 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
 const Checkout = () => {
   const cart = useSelector((state) => state.main.cart);
+  const [formData, setFormData] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    address: "",
+    city: "",
+    state: "",
+    zipcode: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = () => {
+    console.log(formData);
+  };
+
+  // Calculate the total amount of the order
+  const calculateTotal = () => {
+    return cart.reduce(
+      (total, item) =>
+        total +
+        parseFloat(item.product.price.replace("$", "")) *
+          parseInt(item.quantity),
+      0
+    );
+  };
 
   return (
     <>
       <div>
-        <div>
-          <h1 className="fancy-font">Checkout</h1>
+        <div className="check-container">
+          <h5>Checkout</h5>
         </div>
       </div>
-      <div className="checkout-container">
+      <div>
         <div>
-          <div>
-            <label>First Name</label>
-            <input type="text" name="firstname"></input>
-          </div>
-        </div>
-        <div>
-          <div>
-            <label>Last Name</label>
-            <input type="text" name="lastname"></input>
-          </div>
-        </div>
-        <div>
-          <div>
-            <label>Email Address</label>
-            <input type="text" name="email"></input>
-          </div>
-        </div>
-        <div>
-          <div>
-            <label>Street Address</label>
-            <textarea rows="3"></textarea>
-          </div>
-        </div>
-        <div>
-          <div>
-            <label>City</label>
-            <input type="text" name="city"></input>
-          </div>
-        </div>
-        <div>
-          <div>
-            <label>State</label>
-            <input type="text" name="state"></input>
-          </div>
-        </div>
-        <div>
-          <div>
-            <label>Zip Code</label>
-            <input type="text" name="zipcode"></input>
-          </div>
+          <label>First Name</label>
+          <input
+            type="text"
+            name="firstname"
+            value={formData.firstname}
+            onChange={handleChange}
+          />
         </div>
       </div>
-      <div></div>
+      <div>
+        <div>
+          <label>Last Name</label>
+          <input
+            type="text"
+            name="lastname"
+            value={formData.lastname}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+      <div>
+        <div>
+          <label>Email Address</label>
+          <input
+            type="text"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+      <div>
+        <div>
+          <label>Full Address</label>
+          <textarea
+            rows="3"
+            name="address"
+            value={formData.address}
+            onChange={handleChange}
+          ></textarea>
+        </div>
+      </div>
+      <div>
+        <div>
+          <label>City</label>
+          <input
+            type="text"
+            name="city"
+            value={formData.city}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+      <div>
+        <div>
+          <label>State</label>
+          <input
+            type="text"
+            name="state"
+            value={formData.state}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+      <div>
+        <div>
+          <label>Zip Code</label>
+          <input
+            type="text"
+            name="zipcode"
+            value={formData.zipcode}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+      <div>
+        <div></div>
+      </div>
 
-      <div className="checkout-summary">
+      <div>
         <table>
           <thead>
             <tr>
@@ -68,18 +135,62 @@ const Checkout = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>{cart.product}</td>
-              <td>{cart.Product}</td>
-              <td>{cart.quantity}</td>
-              <td>{cart.total}</td>
-              <div>
-                <button type="button">Place Order</button>
-              </div>
-            </tr>
+            {cart.map((item) => (
+              <tr key={`CartItem:${item.id}`}>
+                <td>{item.product.name}</td>
+                <td>{item.product.price}</td>
+                <td>{item.quantity}</td>
+                <td>
+                  {(
+                    parseFloat(item.product.price.replace("$", "")) *
+                    item.quantity
+                  ).toFixed(2)}
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
+
+      <div>
+        <h3>Total: ${calculateTotal().toFixed(2)}</h3>
+      </div>
+      <div>
+        <div>
+          <label>Card Number</label>
+          <input
+            type="text"
+            name="state"
+            value={formData.state}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+      <div>
+        <div>
+          <label>Expiration</label>
+          <input
+            type="text"
+            name="state"
+            value={formData.state}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+      <div>
+        <div>
+          <label>Security Code</label>
+          <input
+            type="text"
+            name="state"
+            value={formData.state}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+      <button type="button" onClick={handleSubmit}>
+        Place Order
+      </button>
     </>
   );
 };
