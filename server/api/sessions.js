@@ -35,6 +35,7 @@ router.get("/:id/cart", async (req, res, next) => {
     let cart = await Order.findOne({
       where: {
         sessionId: req.params.id,
+        status: "cart",
       },
       include: [
         Session,
@@ -123,78 +124,5 @@ router.get("/:id/cart", async (req, res, next) => {
     next(err);
   }
 });
-
-// router.post("/merge", async (req, res, next) => {
-//   const { sessionId, userId } = req.body;
-
-//   try {
-// find session cart based on session id (LOGGED OUT USER)
-// const sessionCart = await Order.findOne({
-//   where: {
-//     status: "cart",
-//     sessionId,
-//   },
-// });
-
-// if no session cart return error
-// if (!sessionCart) {
-//   return res.status(404).json({ error: "Session cart not found " });
-// }
-
-// //find pre-existing cart based on user id (LOGGED IN USER)
-// const preExistingCart = await Order.findOne({
-//   where: { id: userId },
-//   status: "cart",
-//   include: {
-//     model: Session,
-//     include: {
-//       model: Order,
-//       where: { status: "cart" },
-//       include: {
-//         model: OrderItem,
-//         include: [Product],
-//       },
-//     },
-//   },
-// });
-
-//if no pre-existing cart, return session id
-// if (!preExistingCart) {
-//   return res.json({ cartId: sessionCart.id });
-// }
-
-// Merge 2 carts
-// duplicate the order items from the session cart and aassign them to the pre-existing cart (include both product and quantity)
-// Modify the session cart to be status = mergeed
-
-// get all order items from session cart
-// const sessionCartItems = sessionCart.orderItem;
-
-//associate these order items with pre-existing cart
-// await Promise.all(
-//   sessionCartItems.map(async (orderItem) => {
-//     //create new order item with same data and associate it with pre-existing cart
-//     await OrderItem.create({
-//       orderId: preExistingCart.id,
-//       productId: orderItem.productId,
-//       quantity: orderItem.quantity,
-//     });
-//   })
-// );
-
-// Update the status of the session cart to "merged"
-// sessionCart.status = "merged";
-// await sessionCart.save();
-
-//return the updated cart id
-// res.json({ cartId: preExistingCart.id });
-// } catch (error) {
-//   next(error);
-// }
-
-// return the updated cart Id
-// const updatedCartId = preExistingCart.id;
-// res.json({ cartId: updatedCartId });
-// });
 
 module.exports = router;

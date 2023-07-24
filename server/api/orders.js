@@ -23,33 +23,39 @@ router.post("/cartadd", async (req, res, next) => {
       }
     }
 
-    //see if there is a current cart for the provided session ID
-    let cart = await User.findOne({
-      where: { id: session.userId },
-      status: "cart",
-      include: {
-        model: Session,
+    let cart;
+
+    //see if there is a current cart for the provided session ID (only if user is logged in)
+    if (session.userId != null) {
+      cart = await User.findOne({
+        where: { id: session.userId },
+        status: "cart",
         include: {
-          model: Order,
-          where: { status: "cart" },
+          model: Session,
           include: {
-            model: OrderItem,
-            include: [Product],
+            model: Order,
+            where: { status: "cart" },
+            include: {
+              model: OrderItem,
+              include: [Product],
+            },
           },
         },
-      },
-    });
+      });
+    } else {
+      cart = await Order.findOne({
+        where: { sessionId: session.id, status: "cart" },
+      });
+    }
 
-    if (cart && cart.sessions.length > 0) {
+    console.log("CART", cart);
+    if (cart && cart.sessions && cart.sessions.length > 0) {
       cart = cart.sessions[0].orders[0];
     }
 
-    // await Order.findOne({
-    //   where: {
-    //     sessionId: req.body.sessionId,
-    //     status: "cart",
-    //   },
-    // });
+    if (cart && cart.sessions && cart.sessions.length == 0) {
+      cart = null;
+    }
 
     //if there is no cart, create one
     if (!cart) {
@@ -114,13 +120,39 @@ router.post("/cartremove", async (req, res, next) => {
       }
     }
 
-    //see if there is a current cart for the provided session ID
-    let cart = await Order.findOne({
-      where: {
-        sessionId: req.body.sessionId,
+    let cart;
+
+    //see if there is a current cart for the provided session ID (only if user is logged in)
+    if (session.userId != null) {
+      cart = await User.findOne({
+        where: { id: session.userId },
         status: "cart",
-      },
-    });
+        include: {
+          model: Session,
+          include: {
+            model: Order,
+            where: { status: "cart" },
+            include: {
+              model: OrderItem,
+              include: [Product],
+            },
+          },
+        },
+      });
+    } else {
+      cart = await Order.findOne({
+        where: { sessionId: session.id, status: "cart" },
+      });
+    }
+
+    console.log("CART", cart);
+    if (cart && cart.sessions && cart.sessions.length > 0) {
+      cart = cart.sessions[0].orders[0];
+    }
+
+    if (cart && cart.sessions && cart.sessions.length == 0) {
+      cart = null;
+    }
 
     //if there is no cart, throw an error
     if (!cart) {
