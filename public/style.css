@@ -94,7 +94,7 @@ form div {
   display: flex;
   align-items: center;
   justify-content:space-evenly;
-  max-width: 300px;
+  text-align: center;
   flex: 1 0 calc(20% - 10px);
   margin: 0px 15px 10px 15px;
   padding: 0px 10px 0px 10px;
