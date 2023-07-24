@@ -11,7 +11,7 @@ const Checkout = () => {
           <h1 className="fancy-font">Checkout</h1>
         </div>
       </div>
-      <div className="">
+      <div className="checkout-container">
         <div>
           <div>
             <label>First Name</label>
@@ -57,7 +57,7 @@ const Checkout = () => {
       </div>
       <div></div>
 
-      <div className="">
+      <div className="checkout-summary">
         <table>
           <thead>
             <tr>
@@ -69,7 +69,7 @@ const Checkout = () => {
           </thead>
           <tbody>
             <tr>
-              <td>{cart.Product}</td>
+              <td>{cart.product}</td>
               <td>{cart.Product}</td>
               <td>{cart.quantity}</td>
               <td>{cart.total}</td>
