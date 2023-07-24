@@ -12,6 +12,7 @@ const SingleProduct = () => {
   });
 
   const sessionId = useSelector((state) => state.main.sessionId);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     dispatch(fetchSingleProduct(id));
@@ -24,7 +25,7 @@ const SingleProduct = () => {
         sessionId: sessionId,
       }, {
         headers: {
-          "Authorization": localStorage.getItem("token")
+          "Authorization": token
         }
       });
 
