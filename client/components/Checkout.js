@@ -1,11 +1,5 @@
 import React from "react";
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import axios from "axios";
-import { Link, Redirect } from "react-router-dom";
-import Cart from "./Cart";
-import Product from "./Product";
 
 const Checkout = () => {
 
@@ -14,10 +8,11 @@ const Checkout = () => {
   return (
     <>
       <div>
-        <div className="check-container">
-          <h5>Checkout</h5>
+        <div>
+          <h1 className="fancy-font">Checkout</h1>
         </div>
       </div>
+      <div className="">
       <div>
         <div>
           <label>First Name</label>
@@ -60,13 +55,14 @@ const Checkout = () => {
           <input type="text" name="zipcode"></input>
         </div>
       </div>
+      </div>
       <div>
         <div>
           <button type="button">Place Order</button>
         </div>
       </div>
 
-      <div>
+      <div className="">
         <table>
           <thead>
             <tr>
