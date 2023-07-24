@@ -20,6 +20,10 @@ const Cart = () => {
       let cartId = await axios.post("/api/orders/cartadd", {
         productId: id,
         sessionId: sessionId,
+      }, {
+        headers: {
+          "Authorization": localStorage.getItem("token")
+        }
       });
 
       let cart = await axios.get(`/api/sessions/${sessionId}/cart`);
@@ -42,6 +46,10 @@ const Cart = () => {
       let cartId = await axios.post("/api/orders/cartremove", {
         productId: id,
         sessionId: sessionId,
+      }, {
+        headers: {
+          "Authorization": localStorage.getItem("token")
+        }
       });
 
       let cart = await axios.get(`/api/sessions/${sessionId}/cart`);

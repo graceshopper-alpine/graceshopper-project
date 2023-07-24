@@ -1,7 +1,7 @@
 const router = require("express").Router();
 
 const {
-  models: { Order, OrderItem, Product },
+  models: { Order, OrderItem, Product, Session, User },
 } = require("../db");
 
 router.post("/cartadd", async (req, res, next) => {
@@ -11,6 +11,19 @@ router.post("/cartadd", async (req, res, next) => {
     if (!product || product.quantity <= 0) {
       throw new Error("Product not available");
     }
+
+    //see if the provided session ID has a user ID that matches the user ID used in authentication
+    //if session ID does not have a user ID, skip this validation and let the user modify based solely on session ID (to allow for guest experience)
+    const authToken = req.headers.authorization;
+    const session = await Session.findByPk(req.body.sessionId);
+    if (session.userId !== null) {
+      const tokenUser = await User.findByToken(authToken);
+      if (tokenUser.id !== session.userId){
+        throw new Error("Unauthorized");
+      }
+      
+    }
+
 
     //see if there is a current cart for the provided session ID
     let cart = await Order.findOne({
@@ -72,6 +85,20 @@ router.post("/cartadd", async (req, res, next) => {
 
 router.post("/cartremove", async (req, res, next) => {
   try {
+
+    //see if the provided session ID has a user ID that matches the user ID used in authentication
+    //if session ID does not have a user ID, skip this validation and let the user modify based solely on session ID (to allow for guest experience)
+    const authToken = req.headers.authorization;
+    const session = await Session.findByPk(req.body.sessionId);
+    if (session.userId !== null) {
+      const tokenUser = await User.findByToken(authToken);
+      if (tokenUser.id !== session.userId){
+        throw new Error("Unauthorized");
+      }
+      
+    }
+    
+
     //see if there is a current cart for the provided session ID
     let cart = await Order.findOne({
       where: {
@@ -137,6 +164,21 @@ router.post("/cartremove", async (req, res, next) => {
 router.put("/checkout", async (req, res, next) => {
   // check if there is a current cart for the sessionId
   try {
+
+
+    //see if the provided session ID has a user ID that matches the user ID used in authentication
+    //if session ID does not have a user ID, skip this validation and let the user modify based solely on session ID (to allow for guest experience)
+    const authToken = req.headers.authorization;
+    const session = await Session.findByPk(req.body.sessionId);
+    if (session.userId !== null) {
+      const tokenUser = await User.findByToken(authToken);
+      if (tokenUser.id !== session.userId){
+        throw new Error("Unauthorized");
+      }
+      
+    }
+    
+
     const cart = await Order.findOne({
       where: {
         sessionId: req.body.sessionId,
