@@ -14,6 +14,8 @@ const Checkout = () => {
     zipcode: "",
   });
 
+const [openModal, setOpenModal] = useState(false)
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -22,8 +24,9 @@ const Checkout = () => {
     }));
   };
 
-  const handleSubmit = () => {
-    console.log(formData);
+  const handlePlaceOrder = (e) => {
+    e.preventDefault(); // Prevent the default form submission
+    setOpenModal(true);
   };
 
   // Calculate the total amount of the order
@@ -40,8 +43,8 @@ const Checkout = () => {
   return (
     <>
       <div>
-        <div className="check-container">
-          <h5>Checkout</h5>
+        <div>
+          <h1 className="fancy-font">Checkout</h1>
         </div>
       </div>
       <div>
@@ -190,10 +193,10 @@ const Checkout = () => {
         </div>
       </div>
       <div>
-      <button className="openModal" type="button" onClick={handleSubmit}>
+      <button className="openModal" onClick={handlePlaceOrder}>
         Place Order
       </button>
-      <Modal />
+      {openModal && <Modal continueModal={() => setOpenModal(false)}/>}
       </div>
     </>
   );
