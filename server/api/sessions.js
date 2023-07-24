@@ -77,10 +77,11 @@ router.get("/:id/cart", async (req, res, next) => {
   }
 });
 
-router.post("/:id/merge", async (req, res, next) => {
+router.get("/:id/merge", async (req, res, next) => {
   try {
-    const currentSessionId = req.params.id;
+    const currentSessionId = req.params.id; // id of current session
     const currentCart = await Order.findOne({
+      // looks for cart associated with
       where: {
         sessionId: currentSessionId,
       },
@@ -89,10 +90,12 @@ router.post("/:id/merge", async (req, res, next) => {
       },
     });
 
+    // no cart found returns 404
     if (!currentCart) {
       return res.status(404).json({ message: "Current cart not found" });
     }
 
+    // gets productId of the cart items and maps them
     const currentCartItems = currentCart.orderItems.map(
       (item) => item.productId
     );
@@ -100,6 +103,7 @@ router.post("/:id/merge", async (req, res, next) => {
     const session = await Session.findByPk(currentSessionId);
     const userId = session.userId;
 
+    // look for users existing cart
     const user = await User.findOne({
       where: { id: userId },
       include: {
@@ -147,7 +151,7 @@ router.post("/:id/merge", async (req, res, next) => {
       mergedCartItems.map((productId) => ({
         orderId: mergedCart.id,
         productId,
-        quantity: 1, // You can set the quantity as needed
+        quantity: 1,
       }))
     );
 
