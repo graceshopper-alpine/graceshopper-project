@@ -20,7 +20,6 @@ const SingleProduct = () => {
 
   const addToCart = async (id) => {
     try {
-      console.log(token)
       let cartId = await axios.post("/api/orders/cartadd", {
         productId: id,
         sessionId: sessionId,

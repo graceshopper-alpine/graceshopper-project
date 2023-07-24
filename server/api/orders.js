@@ -17,7 +17,6 @@ router.post("/cartadd", async (req, res, next) => {
     const authToken = req.headers.authorization;
     const session = await Session.findByPk(req.body.sessionId);
     if (session.userId !== null) {
-      console.log("headers", req.headers);
       const tokenUser = await User.findByToken(authToken);
       if (tokenUser.id !== session.userId){
         throw new Error("Unauthorized");
