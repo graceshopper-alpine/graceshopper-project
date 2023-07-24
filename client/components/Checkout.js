@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import Modal from "./Modal";
 
 const Checkout = () => {
   const cart = useSelector((state) => state.main.cart);
@@ -188,9 +189,12 @@ const Checkout = () => {
           />
         </div>
       </div>
-      <button type="button" onClick={handleSubmit}>
+      <div>
+      <button className="openModal" type="button" onClick={handleSubmit}>
         Place Order
       </button>
+      <Modal />
+      </div>
     </>
   );
 };
