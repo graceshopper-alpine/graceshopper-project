@@ -662,6 +662,16 @@ textarea {
   margin-bottom: 50px;
 }
 
+/*Global button styling*/
+button {
+  background-color: tan;
+  color: #fff;
+  padding: 10px 20px;
+  border: 1px solid black;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 50px;
+}
 
 .openModal:hover {
   background-color: #4b4b4b; /* Darker gray when hovering over the button */
