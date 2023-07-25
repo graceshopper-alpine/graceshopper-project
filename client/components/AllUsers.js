@@ -7,6 +7,10 @@ const UserList = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.usersSlice.allUsers);
   const isAdmin = useSelector((state) => state.main.isAdmin);
+  const [isLastPage, setIsLastPage] = useState(false);
+  const [page, setPage] = useState(1);
+  const [currUsers, setCurrUsers] = useState([]);
+  const numPerPage = 20;
 
   useEffect(() => {
     dispatch(getAllUsers());
@@ -17,7 +21,14 @@ const UserList = () => {
   };
 
   let sortedUsers
+
+  useEffect(() => {
+    setCurrUsers(users.slice((page-1)*numPerPage, page*numPerPage));
+  },[users, page])
+
   let [currSort, setCurrSort] = useState('');
+
+
 
   const sortUsers = (type) => {
     if (type == 'sessions') {
@@ -48,10 +59,32 @@ const UserList = () => {
     })
   }
 
-  if (users.length > 0) {
+  const paginate = (type) => {
+    if (type == "prev") {
+      if (page > 1) {
+        setPage(page - 1);
+        setIsLastPage(false);
+      }
+    } else if (type == "next") {
+      if (page < Math.ceil(users.length / numPerPage)) {
+        let newPage = page + 1;
+        setPage(page + 1);
+        if (newPage == Math.ceil(users.length / numPerPage)) {
+          setIsLastPage(true);
+        }
+      }
+    }
+  }
+
+  if (currUsers.length > 0) {
     return (
       <div className="user-list">
         <h1 className="fancy-font"> All users:</h1>
+        <span className="pagination-buttons">
+          <button className={page==1 && "inactive"}onClick={()=>paginate("prev")}>Previous</button>
+          <p>{page} of {Math.ceil(users.length / numPerPage)}</p>
+          <button className={isLastPage && "inactive"} onClick={()=>paginate("next")}>Next</button>          
+        </span>
         <table>
           <thead>
             <tr>
@@ -61,7 +94,7 @@ const UserList = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => {
+            {currUsers.map((user) => {
               return (
                 <tr key={user.id} onClick={() => handleClick(user.id)}>
                   <td>{user.username}</td>

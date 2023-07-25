@@ -43,8 +43,8 @@ const Products = () => {
   return (
     <>
     <span className="pagination-buttons">
-      {page!=1 && <button onClick={()=>paginate("prev")}>Previous</button>}
-      {!isLastPage && <button onClick={()=>paginate("next")}>Next</button>}
+      <button className={page==1 && "inactive"} onClick={()=>paginate("prev")}>Previous</button>
+      <button className={isLastPage && "inactive"} onClick={()=>paginate("next")}>Next</button>
     </span>
     <p className="pageNum">{page} of {Math.ceil(products.length / numPerPage)}</p>
     <div className="products-container">
@@ -54,8 +54,8 @@ const Products = () => {
       })}
     </div>
     <span className="pagination-buttons">
-      {page!=1 && <button onClick={()=>paginate("prev")}>Previous</button>}
-      {!isLastPage && <button onClick={()=>paginate("next")}>Next</button>}
+      <button className={page==1 && "inactive"} onClick={()=>paginate("prev")}>Previous</button>
+      <button className={isLastPage && "inactive"} onClick={()=>paginate("next")}>Next</button>
     </span>
     </>
   );
