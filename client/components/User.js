@@ -20,7 +20,9 @@ const User = () => {
       <div className="user-container">
         <h1 className="fancy-font">User: {user.username}</h1>
 
-        <h2>Sessions</h2>
+       {isAdmin && 
+       <>
+       <h2>Sessions</h2>
         <table>
           <thead>
             <tr>
@@ -40,7 +42,8 @@ const User = () => {
               );
             })}
           </tbody>
-        </table>
+        </table> 
+        </>}
 
         <h2>Orders</h2>
         <table>
