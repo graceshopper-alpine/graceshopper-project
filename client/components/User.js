@@ -47,6 +47,7 @@ const User = () => {
           <thead>
             <tr>
               <th>Id</th>
+              <th>Status</th>
               <th>Date</th>
               <th># Items</th>
               <th>Total</th>
@@ -59,6 +60,7 @@ const User = () => {
                 return (
                   <tr key={order.id}>
                     <td>{order.id}</td>
+                    <td>{order.status}</td>
                     <td>{order.createdAt}</td>
                     <td>{order.order_items.length}</td>
                     <td>

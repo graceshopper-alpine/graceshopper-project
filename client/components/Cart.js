@@ -81,7 +81,9 @@ const Cart = () => {
                   <div key={`Product: ${p.id}`} className="cart-item">
                     <img
                       src={`https://picsum.photos/seed/${p.product.id}/200`}
-                    ></img>
+                    >
+                      
+                    </img>
 
                     <div className="cart-item-details">
                       <h2>{p.product.name}</h2>
