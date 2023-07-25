@@ -4,6 +4,8 @@ const {
 } = require("../db");
 module.exports = router;
 
+
+
 router.get("/:id", async (req, res, next) => {
   try {
     //see if the provided session ID has a user ID that matches the user ID used in authentication
@@ -64,6 +66,24 @@ router.post("/toggleAdmin", async (req, res, next) => {
     user.isAdmin = !user.isAdmin;
     await user.save();
     res.json(user);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put("/:id", async (req, res, next) => {
+  try {
+    const currUser = await User.findByToken(req.headers.authorization);
+    const user = await User.findByPk(req.params.id);
+
+    if(currUser.isAdmin || currUser.id === user.id) {
+      user.email = req.body.email;
+      user.phone = req.body.phone;
+      await user.save();
+      res.json(user);
+    } else {
+      res.sendStatus(403);
+    }
   } catch (err) {
     next(err);
   }

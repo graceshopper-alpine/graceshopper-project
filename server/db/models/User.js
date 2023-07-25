@@ -20,7 +20,46 @@ const User = db.define("user", {
     defaultValue: false,
     allowNull: false,
   },
+  email: {
+    type: Sequelize.STRING,
+    unique: true,
+    allowNull: true,
+  },
+  phone: {
+    type: Sequelize.STRING,
+    allowNull: true,
+    unique: true,
+  }
 });
+
+User.beforeCreate((user) => {
+  //validate phone number format
+  let phoneRegex = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+  if (user.phone && !phoneRegex.test(user.phone)) {
+    throw new Error("Invalid phone number format");
+  }
+
+  let emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  if (user.email && !emailRegex.test(user.email)) {
+    throw new Error("Invalid email format");
+  }
+
+})
+
+
+User.beforeUpdate((user) => {
+  //validate phone number format
+  let phoneRegex = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+  if (user.phone && !phoneRegex.test(user.phone)) {
+    throw new Error("Invalid phone number format");
+  }
+
+  let emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  if (user.email && !emailRegex.test(user.email)) {
+    throw new Error("Invalid email format");
+  }
+
+})
 
 module.exports = User;
 
