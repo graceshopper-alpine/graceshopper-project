@@ -24,6 +24,13 @@ form div {
 .content-container{
   display: block;
   margin: 0 auto;
+  margin-top: 70px;
+}
+
+@media (max-width: 600px){
+  .content-container{
+    margin-top: 170px !important
+  }
 }
 
 .products-container {
@@ -74,6 +81,12 @@ form div {
   margin-bottom: 1px;
 }
 
+@media (max-width: 600px){
+  .product-list-item-details {
+    display: flex;
+    flex-direction: column;
+  }
+}
 
 
 .product-list-container-outer{
@@ -113,6 +126,26 @@ form div {
   justify-content: center;
   flex-wrap: wrap;
   height: 60vh;
+}
+
+@media (max-width: 600px){
+  .single-product-container{
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: auto;
+    margin-top: 20px;
+
+  }
+
+  .single-product.image{
+    display: block;
+  }
+
+  .single-product-details{
+    display: block;
+    margin-right: 20px !important;
+    width: 100%;
+  }
 
 }
 
@@ -193,6 +226,13 @@ form div {
   margin-left: 40px;
 }
 
+@media (max-width: 600px){
+  .cart-empty{
+    margin-top: 250px;
+    margin-left: 30px;
+  }
+}
+
 .cart-empty a{
   color: blue;
 }
@@ -205,6 +245,14 @@ form div {
 .cart-page{
   width:100%;
   display: flex;
+}
+
+@media (max-width: 600px){
+  .cart-page{
+    margin-top: 150px;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .cart-container{
@@ -235,7 +283,7 @@ form div {
 }
 
 .cart-item *{
-  text-align: right;
+  text-align: center;
 }
 
 .cart-item img{
@@ -266,8 +314,8 @@ form div {
 }
 
 .cart-item-details *{
-  margin: 0 !important;
-  padding: 0 !important;
+  margin: 0 ;
+  padding: 0 ;
 }
 
 .quantity-span{
@@ -289,11 +337,18 @@ form div {
 .cart-summary{
   display: block;
   margin: 0 auto;
-  margin-top: 20px;
+  margin-top: 70px;
+  margin-right: 40px;
   background-color: #EDEDED;
   width: 40%;
   height: fit-content;
   padding: 50px;
+}
+
+@media (max-width: 600px){
+  .cart-summary{
+    margin: 0;
+  }
 }
 
 .cart-summary * {
@@ -302,6 +357,14 @@ form div {
 }
 
 /* nav styling */
+
+nav {
+  position : fixed;
+  top: 0;
+  width: 100%;
+  padding-bottom: 5px;
+  background-color: #FBFAF3;
+}
 
 nav h2{
   display: inline;
@@ -319,6 +382,21 @@ nav a:hover{
   text-decoration: orange wavy underline;
 } 
 
+@media (max-width: 600px){
+  nav div a:first-of-type {
+    display: block;
+    width: auto;
+    text-align: center;
+  }
+
+  nav div{
+    display: block;
+    text-align: center;
+    width: auto;
+    margin: 0 auto;
+    padding: 0; 
+  }
+}
 
 /* Other header styling */
 
@@ -328,6 +406,7 @@ nav a:hover{
 
 
 /* users table styling */
+
 
 
 
@@ -346,12 +425,28 @@ nav a:hover{
   cursor: pointer;
 }
 
+.user-list th:hover{
+  cursor: pointer;
+}
+
+.user-list th:first-of-type:hover{
+  cursor: default;
+}
+
 /* Basic table styling */
 table {
   margin-top: 0;
   width: 70%;  /* Assuming you want the table to take the full width of its parent container */
   border-collapse: collapse; /* Merge borders */
   margin: 20px 0; /* Add some space around the table */;
+}
+
+@media (max-width: 600px){
+  table, thead, tbody, tr{
+    max-width: 70% !important;
+    overflow: scroll;
+    font-size: 10px;
+  }
 }
 
 /* Header styles */
@@ -364,7 +459,7 @@ th {
 
 /* Data cell styles */
 td {
-  text-align: left;  /* Left align data text */
+  text-align: center;  /* Left align data text */
   padding: 10px;
   border: 1px solid #ddd; /* Light grey border */
 }

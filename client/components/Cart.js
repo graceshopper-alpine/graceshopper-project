@@ -81,7 +81,9 @@ const Cart = () => {
                   <div key={`Product: ${p.id}`} className="cart-item">
                     <img
                       src={`https://picsum.photos/seed/${p.product.id}/200`}
-                    ></img>
+                    >
+
+                    </img>
 
                     <div className="cart-item-details">
                       <h2>{p.product.name}</h2>
@@ -136,7 +138,7 @@ const Cart = () => {
     );
   } else {
     return (
-      <div>
+      <div className="cart-empty">
         <h1 className="fancy-font">Your Cart</h1>
         <p>Looks like your cart is empty.</p>
         <Link to="/products">Continue Shopping.</Link>

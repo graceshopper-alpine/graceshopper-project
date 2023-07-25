@@ -19,7 +19,11 @@ export const usersSlice = createSlice({
   initialState: {
     allUsers: [],
   },
-  reducers: {},
+  reducers: {
+    setUsers: (state, action) => {
+      state.allUsers = action.payload;
+    }
+  },
   extraReducers(builder) {
     builder.addCase(getAllUsers.fulfilled, (state, { payload }) => {
       state.allUsers = payload;
