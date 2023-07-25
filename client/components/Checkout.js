@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import Modal from "./Modal";
 
 const Checkout = () => {
   const cart = useSelector((state) => state.main.cart);
@@ -13,6 +14,8 @@ const Checkout = () => {
     zipcode: "",
   });
 
+  const [openModal, setOpenModal] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -21,8 +24,10 @@ const Checkout = () => {
     }));
   };
 
-  const handleSubmit = () => {
-    console.log(formData);
+  const handlePlaceOrder = (e) => {
+    e.preventDefault();
+    setOpenModal(true);
+    console.log(openModal, "this is my modal")
   };
 
   // Calculate the total amount of the order
@@ -37,90 +42,90 @@ const Checkout = () => {
   };
 
   return (
-    <>
-      <div>
-        <div className="check-container">
-          <h5>Checkout</h5>
-        </div>
-      </div>
-      <div>
+    <div>
+      <div className="fancy-font">
         <div>
-          <label>First Name</label>
-          <input
-            type="text"
-            name="firstname"
-            value={formData.firstname}
-            onChange={handleChange}
-          />
+          <h1 className="fancy-font">Checkout</h1>
         </div>
       </div>
-      <div>
+      <div className="checkout-container">
         <div>
-          <label>Last Name</label>
-          <input
-            type="text"
-            name="lastname"
-            value={formData.lastname}
-            onChange={handleChange}
-          />
+          <div>
+            <label>First Name</label>
+            <input
+              type="text"
+              name="firstname"
+              value={formData.firstname}
+              onChange={handleChange}
+            />
+          </div>
         </div>
-      </div>
-      <div>
         <div>
-          <label>Email Address</label>
-          <input
-            type="text"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
+          <div>
+            <label>Last Name</label>
+            <input
+              type="text"
+              name="lastname"
+              value={formData.lastname}
+              onChange={handleChange}
+            />
+          </div>
         </div>
-      </div>
-      <div>
         <div>
-          <label>Full Address</label>
-          <textarea
-            rows="3"
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-          ></textarea>
+          <div>
+            <label>Email Address</label>
+            <input
+              type="text"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+          </div>
         </div>
-      </div>
-      <div>
         <div>
-          <label>City</label>
-          <input
-            type="text"
-            name="city"
-            value={formData.city}
-            onChange={handleChange}
-          />
+          <div>
+            <label>Street Address</label>
+            <textarea
+              rows="3"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+            ></textarea>
+          </div>
         </div>
-      </div>
-      <div>
         <div>
-          <label>State</label>
-          <input
-            type="text"
-            name="state"
-            value={formData.state}
-            onChange={handleChange}
-          />
+          <div>
+            <label>City</label>
+            <input
+              type="text"
+              name="city"
+              value={formData.city}
+              onChange={handleChange}
+            />
+          </div>
         </div>
-      </div>
-      <div>
         <div>
-          <label>Zip Code</label>
-          <input
-            type="text"
-            name="zipcode"
-            value={formData.zipcode}
-            onChange={handleChange}
-          />
+          <div>
+            <label>State</label>
+            <input
+              type="text"
+              name="state"
+              value={formData.state}
+              onChange={handleChange}
+            />
+          </div>
         </div>
-      </div>
-      <div>
+        <div>
+          <div>
+            <label>Zip Code</label>
+            <input
+              type="text"
+              name="zipcode"
+              value={formData.zipcode}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
         <div></div>
       </div>
 
@@ -188,10 +193,13 @@ const Checkout = () => {
           />
         </div>
       </div>
-      <button type="button" onClick={handleSubmit}>
-        Place Order
-      </button>
-    </>
+      <div>
+        <button className="openModal" onClick={handlePlaceOrder}>
+          Place Order
+        </button>
+        {openModal && <Modal continueModal={() => setOpenModal(false)} />}
+      </div>
+    </div>
   );
 };
 
