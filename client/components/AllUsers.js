@@ -16,7 +16,7 @@ const UserList = () => {
     window.location = `/users/${id}`;
   };
 
-  let sortedUsers = [...users].sort((a, b) => a.id - b.id);
+  let sortedUsers
   let [currSort, setCurrSort] = useState('');
 
   const sortUsers = (type) => {
