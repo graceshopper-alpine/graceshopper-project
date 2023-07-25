@@ -6,7 +6,7 @@ const Product = ({ product, color }) => {
     <Link to={`/products/${product.id}`}>
       <div className="product-list-container-outer">
         <section className="product-list-container">
-          <img src={`https://picsum.photos/seed/${product.id}/200`} />
+          <img src={`${product.image_url}`} />
         </section>
         <span className="product-list-item-details">
           <h3 name="product">{product.name.toUpperCase()}</h3>
