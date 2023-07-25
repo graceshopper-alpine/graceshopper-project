@@ -1,4 +1,4 @@
-const users = [
+let users = [
     {
         "username": "Liliane_Littel18",
         "password": "vX0T8pOdt3Bm"
@@ -300,5 +300,10 @@ const users = [
         "password": "owjEWKl3zOg"
     }
 ]
+
+users = users.map(user => {
+    user.email = user.username + "@gmail.com"
+    return user
+})
 
 module.exports = users

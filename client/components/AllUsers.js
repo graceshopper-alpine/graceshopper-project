@@ -24,7 +24,7 @@ const UserList = () => {
 
   useEffect(() => {
     if (users && users.length >0 ) {
-      setCurrUsers(users.slice((page-1)*numPerPage, page*numPerPage)) 
+      setCurrUsers([...users].slice((page-1)*numPerPage, page*numPerPage)) 
     } else {
       setCurrUsers([]);}
 
@@ -92,7 +92,9 @@ const UserList = () => {
         <table>
           <thead>
             <tr>
+              <th>ID</th>
               <th>Username</th>
+              <th>Email</th>
               <th onClick={()=>sortUsers('sessions')}>Sessions</th>
               <th onClick={()=>sortUsers('orders')}>Orders</th>
             </tr>
@@ -101,7 +103,9 @@ const UserList = () => {
             {currUsers.map((user) => {
               return (
                 <tr key={user.id} onClick={() => handleClick(user.id)}>
+                  <td>{user.id}</td>
                   <td>{user.username}</td>
+                  <td>{user.email}</td>
                   <td>{user.sessions.length}</td>
                   <td>
                     {user.sessions.reduce(

@@ -60,6 +60,7 @@ const SingleProduct = () => {
       </div>
       <div className="single-product-details">
         <h1 className="product-name">{singleProduct.name}</h1>
+        <h4>{singleProduct.category}</h4>
         <h2 className="product-description">{singleProduct.description}</h2>
         <h1 className="product-price">{singleProduct.price}</h1>
         {/* only show low quantity alert if q <5 */}

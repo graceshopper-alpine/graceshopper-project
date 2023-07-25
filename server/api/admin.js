@@ -34,7 +34,7 @@ router.get("/users", adminOnly, async (req, res, next) => {
   try {
     //get all users
     const users = await User.findAll({
-      attributes: ["id", "username", "isAdmin"],
+      attributes: ["id", "username", "isAdmin", "email", "phone"],
       include: [
         {
           model: Session,

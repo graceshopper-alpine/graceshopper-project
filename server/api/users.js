@@ -88,3 +88,23 @@ router.put("/:id", async (req, res, next) => {
     next(err);
   }
 });
+
+router.delete("/:id", async (req, res, next) => {
+  try {
+    const currUser = await User.findByToken(req.headers.authorization);
+    const user = await User.findByPk(req.params.id);
+
+    if(currUser.isAdmin || currUser.id === user.id) {
+      await User.destroy({
+        where: {
+          id: req.params.id,
+        },
+      })
+      res.json("User deleted");
+    } else {
+      res.sendStatus(403);
+    }
+  } catch (err) {
+    next(err);
+  }
+});
