@@ -10,7 +10,17 @@ export const getUser = createAsyncThunk("users/getOne", async (id) => {
     });
     return data;
   } catch (error) {
-    return error;
+    try {
+      const { data } = await axios.get(`/api/users/${id}`, {
+        headers: {
+          "Authorization": localStorage.getItem("token"),
+          "sessionId": localStorage.getItem("session_id"),
+        },
+      });
+      return data;
+    } catch (error) {
+      return error;
+    }
   }
 });
 

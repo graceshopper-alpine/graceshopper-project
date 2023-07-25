@@ -12,6 +12,8 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
   const cart = useSelector((state) => state.main.cart);
   const isAdmin = useSelector((state) => state.main.isAdmin);
   const sessionId = useSelector((state) => state.main.sessionId);
+  const username = useSelector((state) => state.auth.username);
+  const userId = useSelector((state) => state.auth.id);
 
   const toggleAdmin = async () => {
     const { data } = await axios.post("/api/users/toggleAdmin", {
@@ -40,6 +42,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
             <a href="#" onClick={toggleAdmin}>
               Toggle Admin ({isAdmin ? "True" : "False"})
             </a>
+            <Link to={`/users/${userId}`}>{username}</Link>
             <a href="#" onClick={handleClick}>
               Logout
             </a>
