@@ -12,6 +12,7 @@ const Products = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [page, setPage] = useState(1);
   const [isLastPage, setIsLastPage] = useState(false);
+  const [query, setQuery] = useState("");
   const numPerPage = 15;
   // let [searchParams, setSearchParams] = useSearchParams();
   let fuse
@@ -31,11 +32,12 @@ const Products = () => {
     let queryParams = new URLSearchParams(window.location.search);
     let query = queryParams.get("q")
     query = decodeURI(query);
+    setQuery(query);  
 
     //initialize the current products to be the first N products by ID
     setCurrProducts([...products].sort((a, b) => a.id - b.id).slice(0, numPerPage));
 
-    if (query == "null") {
+    if (query == "null" || query == "") {
       setCurrProducts([...products].sort((a, b) => a.id - b.id).slice(0, numPerPage));
       setFilteredProducts([...products].sort((a, b) => a.id - b.id));
       if(products.length <= numPerPage) {
@@ -90,7 +92,7 @@ const Products = () => {
     }
   }
 
-
+  
   return (
     <>
     <div className="selector-container">
@@ -108,6 +110,9 @@ const Products = () => {
       <option value="Socks">Socks</option>
     </select>
     </div>
+
+    {currProducts.length > 0 &&
+    <>
     <span className="pagination-buttons">
       <button className={page==1 && "inactive"} onClick={()=>paginate("prev")}>Previous</button>
       <button className={isLastPage && "inactive"} onClick={()=>paginate("next")}>Next</button>
@@ -123,6 +128,12 @@ const Products = () => {
       <button className={page==1 && "inactive"} onClick={()=>paginate("prev")}>Previous</button>
       <button className={isLastPage && "inactive"} onClick={()=>paginate("next")}>Next</button>
     </span>
+    </>
+    }
+
+    {currProducts.length == 0 && <div className="no-product-found">No products found {(query=="null" || query=="") ? "" : "for " + query}</div>}
+
+
     </>
   );
 };

@@ -59,6 +59,14 @@ select{
   justify-content: center;
 }
 
+.no-product-found{
+  font-size: large;
+  font-weight: bold;
+  font-style: italic;
+  margin-top: 20px;
+  text-align: center;
+}
+
 .products-container a{
   flex: 1 0 calc(20% - 10px);
 
