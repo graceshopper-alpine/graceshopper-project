@@ -8,7 +8,6 @@ import productsSlice from "./productsSlice";
 import singleProductSlice from "./singleProductSlice";
 import usersSlice from "./adminUsersSlice";
 import userSlice from "./adminUserSlice"
-import addProductSlice from "./addProductSlice";
 
 const reducer = combineReducers({
   auth,
@@ -17,7 +16,7 @@ const reducer = combineReducers({
   singleProductSlice,
   usersSlice,
   userSlice,
-  addProductSlice
+  
 });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))

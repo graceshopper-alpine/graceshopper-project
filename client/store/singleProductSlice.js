@@ -22,6 +22,9 @@ const singleProductSlice = createSlice({
         builder.addCase(fetchSingleProduct.fulfilled, (state, action) => {
             state.singleProduct = action.payload
         })
+        builder.addCase(addNewProduct.fulfilled, (state, action) => {
+            state.push(action.payload)
+          })
     }
 })
 

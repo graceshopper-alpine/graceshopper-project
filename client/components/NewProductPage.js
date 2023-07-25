@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import {useDispatch} from 'react-redux';
+import {addNewProduct} from './singleProductSlice'
 
 const NewProductPage = () => {
   const [productData, setProductData] = useState({
@@ -11,6 +13,8 @@ const NewProductPage = () => {
     
   });
 
+  const dispatch = useDispatch()
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setProductData({
@@ -21,8 +25,9 @@ const NewProductPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(addNewProduct(productData));
-    history.push("/products");
+    dispatch(addNewProduct(productData))
+    .then(() => {
+    history.push("/products")})
   };
 
   return (
