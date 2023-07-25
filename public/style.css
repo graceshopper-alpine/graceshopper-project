@@ -42,7 +42,7 @@ form div {
 }
 
 .products-container a{
-  flex: 1 0 calc(25% - 10px);
+  flex: 1 0 calc(20% - 10px);
 
 }
 
@@ -113,6 +113,22 @@ form div {
   padding: 0px 10px 0px 10px;
   color: black;
 
+}
+
+
+.pagination-buttons{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.pagination-buttons button{
+  margin: 10px;
+}
+
+.pageNum{
+  width: 100%;
+  text-align: center;
 }
 
 .product-section p {
