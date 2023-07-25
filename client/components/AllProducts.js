@@ -5,7 +5,7 @@ import Product from "./Product";
 
 const Products = () => {
   const dispatch = useDispatch(); // used to dispatch the action
-  const products = useSelector((state) => state.productsSlice.allProducts); // select data from redux store
+  let products = useSelector((state) => state.productsSlice.allProducts); // select data from redux store
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -13,9 +13,9 @@ const Products = () => {
 
   return (
     <div className="products-container">
-      {products.map((p) => {
+      {[...products].sort((a, b) => a.id - b.id).map((p) => {
 
-        return <Product product={p} key={`Product: ${p.id}`} color={bgColor} />;
+        return <Product product={p} key={`Product: ${p.id}`} />;
       })}
     </div>
   );

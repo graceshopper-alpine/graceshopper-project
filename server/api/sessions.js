@@ -35,6 +35,7 @@ router.get("/:id/cart", async (req, res, next) => {
     let cart = await Order.findOne({
       where: {
         sessionId: req.params.id,
+        status: "cart",
       },
       include: [
         Session,
@@ -44,6 +45,53 @@ router.get("/:id/cart", async (req, res, next) => {
         },
       ],
     });
+
+    if (cart) {
+      //find pre-existing cart based on user id (LOGGED IN USER)
+      const preExistingCart = await User.findOne({
+        where: { id: userId },
+        status: "cart",
+        include: {
+          model: Session,
+          include: {
+            model: Order,
+            where: { status: "cart" },
+            include: {
+              model: OrderItem,
+              include: [Product],
+            },
+          },
+        },
+      });
+
+      // pre existing cart must exist
+      if (preExistingCart) {
+        console.log("PRE EXISTING CART", preExistingCart.sessions[0].orders[0]);
+        if (
+          preExistingCart.sessions[0].orders[0] &&
+          preExistingCart.sessions[0].orders[0].id != cart.id
+        ) {
+          const sessionCartItems = cart.order_items;
+          console.log("ERROR SESSION CART", sessionCartItems);
+          console.log("CART", cart);
+          await Promise.all(
+            sessionCartItems.map(async (orderItem) => {
+              //create new order item with same data and associate it with pre-existing cart
+              console.log("ORDER ITEM", orderItem);
+              await OrderItem.create({
+                orderId: preExistingCart.sessions[0].orders[0].id,
+                productId: orderItem.productId,
+                quantity: orderItem.quantity,
+              });
+            })
+          );
+
+          cart.status = "merged";
+          await cart.save();
+          cart = preExistingCart.sessions[0].orders[0];
+        }
+      }
+    }
 
     //if there is no cart for the given session, look for carts from other sessions
     if (!cart) {
