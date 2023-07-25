@@ -301,6 +301,16 @@ form div {
   height: fit-content
 }
 
+/* checkout page styling */
+.checkout-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 70%;
+  max-width: 700px;
+  min-width: 350px;
+}
 
 /* nav styling */
 
