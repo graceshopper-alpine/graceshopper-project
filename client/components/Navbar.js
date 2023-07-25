@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../store";
@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
+import Fuse from 'fuse.js'
+
 
 const Navbar = ({ handleClick, isLoggedIn }) => {
   const dispatch = useDispatch();
@@ -14,6 +16,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
   const sessionId = useSelector((state) => state.main.sessionId);
   const username = useSelector((state) => state.auth.username);
   const userId = useSelector((state) => state.auth.id);
+  const [searchField, setSearchField] = useState("");
 
   const toggleAdmin = async () => {
     const { data } = await axios.post("/api/users/toggleAdmin", {
@@ -25,8 +28,12 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
     });
   };
 
+  const handleSearchChange = (e) => {
+    setSearchField(e.target.value);
+  }
+
   return (
-    <div>
+    <div className="outer-nav-container">
       <nav>
         {isLoggedIn ? (
           <div>
@@ -46,6 +53,8 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
             <a href="#" onClick={handleClick}>
               Logout
             </a>
+            <input onKeyDown={(e)=>{if(e.key === "Enter"){window.location = `/products?q=${encodeURI(searchField)}`}}} type="text" placeholder="Search" value={searchField} onChange={handleSearchChange}></input>
+            <a onClick={()=>window.location = `/products?q=${encodeURI(searchField)}`}><i class="fa-solid fa-magnifying-glass"></i></a>
           </div>
         ) : (
           <div>
@@ -59,6 +68,8 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
             </Link>
             <Link to="/login">Login</Link>
             <Link to="/signup">Sign Up</Link>
+            <input onKeyDown={(e)=>{if(e.key === "Enter"){window.location = `/products?q=${encodeURI(searchField)}`}}} type="text" placeholder="Search" value={searchField} onChange={handleSearchChange}></input>
+            <a onClick={()=>window.location = `/products?q=${encodeURI(searchField)}`}><i class="fa-solid fa-magnifying-glass"></i></a>
           </div>
         )}
       </nav>

@@ -1,52 +1,105 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../store/productsSlice";
+import {useSearchParams} from "react-router-dom";
 import Product from "./Product";
+import Fuse from "fuse.js";
 
 const Products = () => {
   const dispatch = useDispatch(); // used to dispatch the action
   let products = useSelector((state) => state.productsSlice.allProducts); // select data from redux store
   const [currProducts, setCurrProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [page, setPage] = useState(1);
   const [isLastPage, setIsLastPage] = useState(false);
   const numPerPage = 15;
+  // let [searchParams, setSearchParams] = useSearchParams();
+  const queryParams = new URLSearchParams(window.location.search);
+  let query = queryParams.get("q")
+  query = decodeURI(query);
+  let fuse
+
 
   useEffect(() => {
     dispatch(getAllProducts());
   }, []);
 
   useEffect(() => {
-    setCurrProducts([...products].sort((a, b) => a.id - b.id).slice(0, numPerPage))
+    fuse = new Fuse(products, {
+      keys: ["name", "category", "description"],
+      threshold: 0.3
+    })
+
+    setCurrProducts([...products].sort((a, b) => a.id - b.id).slice(0, numPerPage));
+
+    if (!query) {
+      setCurrProducts([...products].sort((a, b) => a.id - b.id).slice(0, numPerPage));
+      setFilteredProducts([...products].sort((a, b) => a.id - b.id));
+      if(products.length <= numPerPage) {
+        setIsLastPage(true);
+      }
+    } else {
+      setFilteredProducts(fuse.search(query).map((result) => result.item));
+      setCurrProducts(fuse.search(query).map((result) => result.item).slice(0, numPerPage));
+      if(fuse.search(query).map((result) => result.item).length <= numPerPage) {
+        setIsLastPage(true);
+      }
+    }
+
+
+
+    
   }, [products]);
 
   const paginate = (type) => {
     if (type == "prev") {
       if (page > 1) {
         let newPage = page - 1;
-        setCurrProducts([...products].sort((a, b) => a.id - b.id).slice((newPage-1)*numPerPage, (newPage)*numPerPage));
+        setCurrProducts(filteredProducts.slice((newPage-1)*numPerPage, (newPage)*numPerPage));
         setPage(page - 1);
         setIsLastPage(false);
       }
     } else if (type == "next") {
-      if (page < Math.ceil(products.length / numPerPage)) {
+      if (page < Math.ceil(filteredProducts.length / numPerPage)) {
         let newPage = page + 1;
-        setCurrProducts([...products].sort((a, b) => a.id - b.id).slice((newPage-1)*numPerPage, (newPage)*numPerPage));
+        setCurrProducts(filteredProducts.slice((newPage-1)*numPerPage, (newPage)*numPerPage));
         setPage(page + 1);
-        if (newPage == Math.ceil(products.length / numPerPage)) {
+        if (newPage == Math.ceil(filteredProducts.length / numPerPage)) {
           setIsLastPage(true);
         }
       }
     }
   }
 
+  const filterProducts = (category) => {
+    if (category == "all") {
+      setCurrProducts([...products].sort((a, b) => a.id - b.id).slice(0, numPerPage));
+      setFilteredProducts([...products].sort((a, b) => a.id - b.id));
+      setPage(1);
+      setIsLastPage(false);
+    } else {
+      setFilteredProducts([...products].filter((p) => p.category === category).sort((a, b) => a.id - b.id));
+      setCurrProducts([...products].filter((p) => p.category === category).sort((a, b) => a.id - b.id).slice(0, numPerPage));
+      setPage(1);
+      setIsLastPage(false);
+    }
+  }
+
 
   return (
     <>
+    <div className="selector-container">
+    <select className="category-selector" onChange={(e) => filterProducts(e.target.value)}>
+      <option value="all">All</option>
+      <option value="Accessories">Category 1</option>
+      <option value="Mens">Category 2</option>
+    </select>
+    </div>
     <span className="pagination-buttons">
       <button className={page==1 && "inactive"} onClick={()=>paginate("prev")}>Previous</button>
       <button className={isLastPage && "inactive"} onClick={()=>paginate("next")}>Next</button>
     </span>
-    <p className="pageNum">{page} of {Math.ceil(products.length / numPerPage)}</p>
+    <p className="pageNum">{page} of {Math.ceil(filteredProducts.length / numPerPage)}</p>
     <div className="products-container">
       {currProducts.map((p) => {
 

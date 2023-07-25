@@ -4,6 +4,7 @@ import axios from "axios";
 import { getUser } from "../store/adminUserSlice";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import DeleteUserModal from "./DeleteUserModal";
 
 const User = () => {
   const { id } = useParams();
@@ -12,12 +13,20 @@ const User = () => {
   const isAdmin = useSelector((state) => state.main.isAdmin);
   const [editEmail, setEditEmail] = useState(false);
   const [editPhone, setEditPhone] = useState(false);
-  const [emailField, setEmailField] = useState(user.email);
-  const [phoneField, setPhoneField] = useState(user.phone);
+  const [emailField, setEmailField] = useState(''); 
+  const [phoneField, setPhoneField] = useState('');
+  const [openModal, setOpenModal] = useState(false);
+
 
   useEffect(() => {
     dispatch(getUser(id));
   }, [id, isAdmin]);
+
+  useEffect(() => {
+    if(user.doesNotExist) {
+      window.location = "/"
+    }
+  },[user])
 
   useEffect(() => {
     setEmailField(user.email);
@@ -81,6 +90,22 @@ const User = () => {
   }
   }
 
+  const deleteUser = async () => {
+    try {
+      await axios.delete(`/api/users/${id}`, {
+        headers: {
+          "Authorization": localStorage.getItem("token")
+        }
+      });
+      dispatch(getUser(id));
+    } catch (err) {
+      if (err.response && err.response.data) {
+        console.log(err.response.data);
+      } else {
+        console.log(err);
+      }
+    }
+  }
 
   const handleChange = (e) => {
     if(e.target.name === "email") {
@@ -94,6 +119,9 @@ const User = () => {
   if (user.sessions) {
     return (
       <div className="user-container">
+
+        {openModal && <DeleteUserModal deleteUser={deleteUser} cancelModal={() => setOpenModal(false)} />}
+
         <h1 className="fancy-font">User: {user.username}</h1>
 
         <h2>Contact Details</h2>
@@ -105,6 +133,10 @@ const User = () => {
         <span>
           <b>Phone:</b> {editPhone ? <input name="phone" type="tel" pattern="^\(?\d{3}\)?[\- ]?\d{3}[\- ]?\d{4}$" value={phoneField} onChange={handleChange}></input> : user.phone}
           <a onClick={()=>toggleEdit('phone')}>{editPhone ? "Save" : "Edit"}</a>
+        </span>
+
+        <span>
+          <button onClick={()=>setOpenModal(true)}>Delete User</button>
         </span>
 
        {isAdmin && 

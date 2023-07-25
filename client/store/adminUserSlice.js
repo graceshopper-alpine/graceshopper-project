@@ -32,7 +32,11 @@ export const userSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder.addCase(getUser.fulfilled, (state, { payload }) => {
-      state.user = payload;
+      if (payload != null) {
+        state.user = payload;
+      } else {
+        state.user = { sessions: [], orders: [], email: "", phone: "", doesNotExist: true };
+      }
     });
   },
 });
