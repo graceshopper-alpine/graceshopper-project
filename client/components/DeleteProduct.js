@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
+import { useSelector, useDispatch} from 'react-redux'
+import { deleteProduct } from "../store/singleProductSlice";
 
 const DeleteProductPage = () => {
   const { productId } = useParams();
+  const dispatch = useDispatch();
   const history = useHistory();
-  const [product, setProduct] = useState(null);
+  const product = useSelector
 
   useEffect(() => {
     fetchProductDetails(productId).then((data) => setProduct(data));

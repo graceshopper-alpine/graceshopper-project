@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
+import {useSelector, useDispatch} from 'react-redux';
+import {fetchSingleProduct} from './singleProductSlice'
 
 const EditProductPage = () => {
   const { productId } = useParams(); // Get the productId from the URL parameter
-  const [productData, setProductData] = useState({
-    name: "",
-    price: "",
-    image_url: "",
-    description: "",
-    category: "",
-    quantity: "",
-    
-  });
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const productData = useSelector((state) => state.singleProduct.singleProduct);
 
   useEffect(() => {
     fetchProductDetails(productId).then((data) => setProductData(data));
@@ -19,12 +15,11 @@ const EditProductPage = () => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setProductData({
-      ...productData,
-      [name]: value,
+    dispatch({
+      type: 'singleProduct/updateProductData',
+      payload: { ...productData, [name]: value },
     });
   };
-
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(updateProduct(productId, productData));
