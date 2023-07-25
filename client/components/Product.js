@@ -6,7 +6,7 @@ const Product = ({ product, color }) => {
     <Link to={`/products/${product.id}`}>
       <div className="product-list-container-outer">
         <section className="product-list-container">
-          <img className="product-image" src={`${product.image_url}`} />
+          <img src={`${product.image_url}`} />
         </section>
         <span className="product-list-item-details">
           <h3 name="product">{product.name.toUpperCase()}</h3>
