@@ -38,10 +38,10 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
         {isLoggedIn ? (
           <div>
             {/* The navbar will show these links after you log in */}
-            <Link to="/products">
+            <Link to="/">
               <h2>Grace Shopper</h2>
             </Link>
-            <Link to="/products">Products</Link>
+            <Link to="/">Products</Link>
             <Link to="/cart">
               {cart.length > 0 ? `Cart (${cart.length})` : `Cart`}
             </Link>
@@ -58,11 +58,11 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
           </div>
         ) : (
           <div>
-            <Link to="/products">
+            <Link to="/">
               <h2>Grace Shopper</h2>
             </Link>
             {/* The navbar will show these links before you log in */}
-            <Link to="/products">Products</Link>
+            <Link to="/">Products</Link>
             <Link to="/cart">
               {cart.length > 0 ? `Cart (${cart.length})` : `Cart`}
             </Link>
