@@ -92,6 +92,7 @@ const UserList = () => {
         <table>
           <thead>
             <tr>
+              <th>ID</th>
               <th>Username</th>
               <th onClick={()=>sortUsers('sessions')}>Sessions</th>
               <th onClick={()=>sortUsers('orders')}>Orders</th>
@@ -101,6 +102,7 @@ const UserList = () => {
             {currUsers.map((user) => {
               return (
                 <tr key={user.id} onClick={() => handleClick(user.id)}>
+                  <td>{user.id}</td>
                   <td>{user.username}</td>
                   <td>{user.sessions.length}</td>
                   <td>
