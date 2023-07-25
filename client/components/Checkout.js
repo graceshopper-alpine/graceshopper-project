@@ -27,6 +27,7 @@ const Checkout = () => {
   const handlePlaceOrder = (e) => {
     e.preventDefault();
     setOpenModal(true);
+
   };
 
   // Calculate the total amount of the order
@@ -42,16 +43,17 @@ const Checkout = () => {
 
   return (
     <div>
-      <div className="fancy-font">
+      <div className="fancy-font-checkout">
         <div>
-          <h1 className="fancy-font">Checkout</h1>
+          <h1 className="fancy-font-checkout">Checkout</h1>
         </div>
       </div>
       <div className="checkout-container">
         <div>
           <div>
-            <label>First Name</label>
+            <label className="checkout-label">First Name</label>
             <input
+              className="checkout-input"
               type="text"
               name="firstname"
               value={formData.firstname}
@@ -61,8 +63,9 @@ const Checkout = () => {
         </div>
         <div>
           <div>
-            <label>Last Name</label>
+            <label className="checkout-label">Last Name</label>
             <input
+              className="checkout-input"
               type="text"
               name="lastname"
               value={formData.lastname}
@@ -72,8 +75,9 @@ const Checkout = () => {
         </div>
         <div>
           <div>
-            <label>Email Address</label>
+            <label className="checkout-label">Email Address</label>
             <input
+              className="checkout-input"
               type="text"
               name="email"
               value={formData.email}
@@ -83,8 +87,9 @@ const Checkout = () => {
         </div>
         <div>
           <div>
-            <label>Street Address</label>
+            <label className="checkout-label">Street Address</label>
             <textarea
+              className="checkout-label-address"
               rows="3"
               name="address"
               value={formData.address}
@@ -94,8 +99,9 @@ const Checkout = () => {
         </div>
         <div>
           <div>
-            <label>City</label>
+            <label className="checkout-label">City</label>
             <input
+              className="checkout-input"
               type="text"
               name="city"
               value={formData.city}
@@ -105,8 +111,9 @@ const Checkout = () => {
         </div>
         <div>
           <div>
-            <label>State</label>
+            <label className="checkout-label">State</label>
             <input
+              className="checkout-input"
               type="text"
               name="state"
               value={formData.state}
@@ -116,8 +123,9 @@ const Checkout = () => {
         </div>
         <div>
           <div>
-            <label>Zip Code</label>
+            <label className="checkout-label">Zip Code</label>
             <input
+              className="checkout-input"
               type="text"
               name="zipcode"
               value={formData.zipcode}
@@ -128,7 +136,7 @@ const Checkout = () => {
         <div></div>
       </div>
 
-      <div>
+      <div className="item-container">
         <table>
           <thead>
             <tr>
@@ -156,43 +164,49 @@ const Checkout = () => {
         </table>
       </div>
 
-      <div>
+      <div className="total-info">
         <h3>Total: ${calculateTotal().toFixed(2)}</h3>
       </div>
-      <div>
+      <div className="payment-container">
         <div>
-          <label>Card Number</label>
-          <input
-            type="text"
-            name="state"
-            value={formData.state}
-            onChange={handleChange}
-          />
+          <div>
+            <label className="payment-label">Card Number</label>
+            <input
+              className="payment-input"
+              type="text"
+              name="card-number"
+              value="xxxx-xxxx-xxxx-xxxx"
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+        <div>
+          <div>
+            <label className="payment-label">Expiration</label>
+            <input
+              className="payment-input"
+              type="text"
+              name="expiration"
+              value="xx/xx"
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+        <div>
+          <div>
+            <label className="payment-label">Security Code</label>
+            <input
+              className="payment-input"
+              type="text"
+              name="security-code"
+              value="xxx"
+              onChange={handleChange}
+            />
+          </div>
         </div>
       </div>
-      <div>
-        <div>
-          <label>Expiration</label>
-          <input
-            type="text"
-            name="state"
-            value={formData.state}
-            onChange={handleChange}
-          />
-        </div>
-      </div>
-      <div>
-        <div>
-          <label>Security Code</label>
-          <input
-            type="text"
-            name="state"
-            value={formData.state}
-            onChange={handleChange}
-          />
-        </div>
-      </div>
-      <div>
+
+      <div className="button-container">
         <button className="openModal" onClick={handlePlaceOrder}>
           Place Order
         </button>
