@@ -223,6 +223,43 @@ form div {
   margin-bottom: 20px;
 }
 
+/* Modal/thank you page styling */
+.modalBackground{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(200, 200, 200);
+  z-index: 9999;
+}
+
+.modalContainer {
+  background-color: #fff;
+  padding: 20px;
+  max-width: 500px;
+  height: 45%;
+  width: 90%;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.6) 0px 5px 15px;
+}
+
+.modalTitle {
+  text-align: center;
+}
+
+.modalBody {
+  text-align: center;
+}
+
+.modalFooter {
+  text-align: center;
+  margin-top: 20px;
+}
+
 /* Add To Cart button styling */
 .add-to-cart-btn {
   background-color: #f0c14b;
