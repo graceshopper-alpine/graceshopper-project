@@ -23,7 +23,11 @@ const UserList = () => {
   let sortedUsers
 
   useEffect(() => {
-    setCurrUsers(users.slice((page-1)*numPerPage, page*numPerPage));
+    if (users && users.length >0 ) {
+      setCurrUsers(users.slice((page-1)*numPerPage, page*numPerPage)) 
+    } else {
+      setCurrUsers([]);}
+
   },[users, page])
 
   let [currSort, setCurrSort] = useState('');
