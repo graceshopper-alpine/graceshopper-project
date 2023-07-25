@@ -15,7 +15,13 @@ const App = () => {
     // when the user logs in, set isAdmin to true in redux if needed.
     if (userId) {
       const getUserSetAdmin = async () => {
-        const { data } = await axios.get(`/api/users/${userId}`);
+        const { data } = await axios.get(`/api/users/${userId}`,
+          {
+            headers: {
+              "Authorization": localStorage.getItem("token"),
+              "sessionId": localStorage.getItem("session_id"),
+            }
+          });
         dispatch({
           type: "main/setAdmin",
           payload: data.isAdmin,
