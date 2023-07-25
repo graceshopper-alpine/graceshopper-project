@@ -27,6 +27,7 @@ const Checkout = () => {
   const handlePlaceOrder = (e) => {
     e.preventDefault();
     setOpenModal(true);
+    console.log(openModal, "this is my modal")
   };
 
   // Calculate the total amount of the order
