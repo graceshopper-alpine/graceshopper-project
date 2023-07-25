@@ -114,6 +114,11 @@ form div {
   color: black;
 
 }
+.product-image {
+  width: 200px; /* Set the desired width */
+  height: 200px; /* Set the desired height */
+  object-fit: cover; /* Maintain aspect ratio and fill the container */
+}
 
 
 .pagination-buttons{
