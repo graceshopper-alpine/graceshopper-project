@@ -102,10 +102,10 @@ const Products = () => {
       <option value="Long Sleeve Shirts">Long Sleeve Shirts</option>
       <option value="Tank Tops">Tank Tops</option>
       <option value="Sweatshirts">Sweatshirts</option>
-      <option value="Jackets">Category 7</option>
-      <option value="Hats">Category 8</option>
-      <option value="Dresses">Category 9</option>
-      <option value="Socks">Category 10</option>
+      <option value="Jackets">Jackets</option>
+      <option value="Hats">Hats</option>
+      <option value="Dresses">Dresses</option>
+      <option value="Socks">Socks</option>
     </select>
     </div>
     <span className="pagination-buttons">
