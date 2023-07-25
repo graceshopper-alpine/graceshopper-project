@@ -26,7 +26,9 @@ export const usersSlice = createSlice({
   },
   extraReducers(builder) {
     builder.addCase(getAllUsers.fulfilled, (state, { payload }) => {
-      state.allUsers = payload;
+      state.allUsers = payload.sort((a, b) => {
+        return a.id - b.id;
+      });
     });
   },
 });

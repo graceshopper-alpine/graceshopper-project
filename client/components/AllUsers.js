@@ -24,7 +24,7 @@ const UserList = () => {
 
   useEffect(() => {
     if (users && users.length >0 ) {
-      setCurrUsers(users.slice((page-1)*numPerPage, page*numPerPage)) 
+      setCurrUsers([...users].slice((page-1)*numPerPage, page*numPerPage)) 
     } else {
       setCurrUsers([]);}
 

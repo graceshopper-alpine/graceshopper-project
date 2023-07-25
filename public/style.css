@@ -529,7 +529,7 @@ nav a:hover{
   cursor: pointer;
 }
 
-.user-list th:first-of-type:hover{
+.user-list th:nth-of-type(-n+3):hover{
   cursor: default;
 }
 
