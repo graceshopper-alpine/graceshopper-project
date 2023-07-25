@@ -8,6 +8,7 @@ const Products = () => {
   let products = useSelector((state) => state.productsSlice.allProducts); // select data from redux store
   const [currProducts, setCurrProducts] = useState([]);
   const [page, setPage] = useState(1);
+  const [isLastPage, setIsLastPage] = useState(false);
   const numPerPage = 15;
 
   useEffect(() => {
@@ -24,12 +25,16 @@ const Products = () => {
         let newPage = page - 1;
         setCurrProducts([...products].sort((a, b) => a.id - b.id).slice((newPage-1)*numPerPage, (newPage)*numPerPage));
         setPage(page - 1);
+        setIsLastPage(false);
       }
     } else if (type == "next") {
       if (page < Math.ceil(products.length / numPerPage)) {
         let newPage = page + 1;
         setCurrProducts([...products].sort((a, b) => a.id - b.id).slice((newPage-1)*numPerPage, (newPage)*numPerPage));
         setPage(page + 1);
+        if (newPage == Math.ceil(products.length / numPerPage)) {
+          setIsLastPage(true);
+        }
       }
     }
   }
@@ -38,8 +43,8 @@ const Products = () => {
   return (
     <>
     <span className="pagination-buttons">
-      <button onClick={()=>paginate("prev")}>Previous</button>
-      <button onClick={()=>paginate("next")}>Next</button>
+      {page!=1 && <button onClick={()=>paginate("prev")}>Previous</button>}
+      {!isLastPage && <button onClick={()=>paginate("next")}>Next</button>}
     </span>
     <p className="pageNum">{page} of {Math.ceil(products.length / numPerPage)}</p>
     <div className="products-container">
@@ -49,8 +54,8 @@ const Products = () => {
       })}
     </div>
     <span className="pagination-buttons">
-      <button onClick={()=>paginate("prev")}>Previous</button>
-      <button onClick={()=>paginate("next")}>Next</button>
+      {page!=1 && <button onClick={()=>paginate("prev")}>Previous</button>}
+      {!isLastPage && <button onClick={()=>paginate("next")}>Next</button>}
     </span>
     </>
   );
