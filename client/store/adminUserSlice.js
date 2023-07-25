@@ -27,7 +27,7 @@ export const getUser = createAsyncThunk("users/getOne", async (id) => {
 export const userSlice = createSlice({
   name: "user",
   initialState: {
-    user: { sessions: [], orders: [] },
+    user: { sessions: [], orders: [], email: "", phone: "" },
   },
   reducers: {},
   extraReducers(builder) {

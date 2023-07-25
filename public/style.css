@@ -437,6 +437,31 @@ nav a:hover{
   width: 70%;
 }
 
+.user-container span{
+  margin-top: 10px;
+  width: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  margin-bottom: 5px;
+}
+
+.user-container input{
+  margin-left: 10px;
+}
+
+.user-container span a{
+  margin-left: 10px;
+  font-weight: bold;
+  color: blue;
+}
+
+.user-container span a:hover{
+  font-style: italic;
+  cursor: pointer;
+}
+
+
 .user-list tbody tr:hover{
   cursor: pointer;
 }
@@ -448,6 +473,19 @@ nav a:hover{
 .user-list th:first-of-type:hover{
   cursor: default;
 }
+
+
+/* Individual user styling  */
+
+
+input:invalid {
+  border: 2px dashed red;
+}
+
+b{
+  margin-right: 5px;
+}
+
 
 /* Basic table styling */
 table {
@@ -494,3 +532,5 @@ table a:hover{
   text-decoration: underline;
   font-style: italic;
 }
+
+

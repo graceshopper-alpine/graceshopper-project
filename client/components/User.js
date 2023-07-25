@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { getUser } from "../store/adminUserSlice";
@@ -10,15 +10,102 @@ const User = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userSlice.user);
   const isAdmin = useSelector((state) => state.main.isAdmin);
+  const [editEmail, setEditEmail] = useState(false);
+  const [editPhone, setEditPhone] = useState(false);
+  const [emailField, setEmailField] = useState(user.email);
+  const [phoneField, setPhoneField] = useState(user.phone);
 
   useEffect(() => {
     dispatch(getUser(id));
   }, [id, isAdmin]);
 
+  useEffect(() => {
+    setEmailField(user.email);
+  }, [user.email]);
+
+  useEffect(() => {
+    setPhoneField(user.phone);
+  }, [user.phone]);
+
+  const toggleEdit = async (type) => {
+    
+    if (type === "email") {
+      if (!editEmail) {
+        setEditEmail(true);
+      } else {
+        try {
+          await axios.put(`/api/users/${id}`, {
+            email: emailField,
+            phone: user.phone
+          },
+            {
+              headers: {
+                "Authorization": localStorage.getItem("token")
+              }
+            });
+            dispatch(getUser(id))
+            setEditEmail(false);
+        } catch (err) {
+          if (err.response && err.response.data) {
+            console.log(err.response.data);
+          } else {
+            console.log(err);
+          }
+        }
+      }
+    }
+    
+    if (type === "phone") {
+      if (!editPhone) {
+        setEditPhone(true);
+      } else {
+        try {
+          await axios.put(`/api/users/${id}`, {
+            email: user.email,
+            phone: phoneField},
+            {
+              headers: {
+                "Authorization": localStorage.getItem("token")
+              }
+            });
+            dispatch(getUser(id))
+            setEditPhone(false);
+      } catch (err) {
+        if (err.response && err.response.data) {
+          console.log(err.response.data);
+        } else {
+          console.log(err);
+        }
+      }
+    }
+  }
+  }
+
+
+  const handleChange = (e) => {
+    if(e.target.name === "email") {
+      setEmailField(e.target.value);
+    }
+    if(e.target.name === "phone") {
+      setPhoneField(e.target.value);
+    }
+  }
+
   if (user.sessions) {
     return (
       <div className="user-container">
         <h1 className="fancy-font">User: {user.username}</h1>
+
+        <h2>Contact Details</h2>
+        <span>
+          <b>Email:</b> {editEmail ? <input name="email" type="email" pattern="^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$" value={emailField} onChange={handleChange}></input> : user.email}
+          <a onClick={()=>toggleEdit('email')}>{editEmail ? "Save" : "Edit"}</a>
+        </span>
+        
+        <span>
+          <b>Phone:</b> {editPhone ? <input name="phone" type="tel" pattern="^\(?\d{3}\)?[\- ]?\d{3}[\- ]?\d{4}$" value={phoneField} onChange={handleChange}></input> : user.phone}
+          <a onClick={()=>toggleEdit('phone')}>{editPhone ? "Save" : "Edit"}</a>
+        </span>
 
        {isAdmin && 
        <>
