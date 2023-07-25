@@ -83,7 +83,7 @@ const Checkout = () => {
         </div>
         <div>
           <div>
-            <label>Full Address</label>
+            <label>Street Address</label>
             <textarea
               rows="3"
               name="address"
