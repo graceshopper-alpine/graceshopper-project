@@ -18,6 +18,7 @@ const reducer = combineReducers({
   userSlice,
   
 });
+
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );

@@ -28,7 +28,7 @@ const EditProductPage = () => {
 
   return (
         <div>
-          <h2>Add New Product</h2>
+          <h2>Edit Product</h2>
           <form onSubmit={handleSubmit}>
             <label>
               Name:

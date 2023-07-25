@@ -32,7 +32,7 @@ const Products = () => {
 
   return (
     <div className="products-container">
-        <Link to="/new-product">
+        <Link to="/newproduct">
         <button>Add New Product</button>
         </Link>
       {products.map((p) => {
@@ -42,11 +42,11 @@ const Products = () => {
             <div key={`Product: ${p.id}`}>
               <Product product={p} key={`Product: ${p.id}`} color={bgColor} />
   
-              <Link to={`/edit-product/${p.id}`}>
+              <Link to={`/products/updateproducts${p.id}`}>
                 <button>Edit</button>
               </Link>
   
-              <Link to={`/delete-product/${p.id}`}>
+              <Link to={`/products/${p.id}/deleteproducts`}>
                 <button>Delete</button>
               </Link>
             </div>

@@ -23,6 +23,9 @@ export const productsSlice = createSlice({
     builder.addCase(getAllProducts.fulfilled, (state, { payload }) => {
       state.allProducts = payload;
     });
+    builder.addCase(addNewProduct.fulfilled, (state, action) => {
+      state.push(action.payload)
+    })
   },
 });
 
