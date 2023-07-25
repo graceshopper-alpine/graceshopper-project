@@ -94,6 +94,7 @@ const UserList = () => {
             <tr>
               <th>ID</th>
               <th>Username</th>
+              <th>Email</th>
               <th onClick={()=>sortUsers('sessions')}>Sessions</th>
               <th onClick={()=>sortUsers('orders')}>Orders</th>
             </tr>
@@ -104,6 +105,7 @@ const UserList = () => {
                 <tr key={user.id} onClick={() => handleClick(user.id)}>
                   <td>{user.id}</td>
                   <td>{user.username}</td>
+                  <td>{user.email}</td>
                   <td>{user.sessions.length}</td>
                   <td>
                     {user.sessions.reduce(
