@@ -14,9 +14,6 @@ const Products = () => {
   const [isLastPage, setIsLastPage] = useState(false);
   const numPerPage = 15;
   // let [searchParams, setSearchParams] = useSearchParams();
-  const queryParams = new URLSearchParams(window.location.search);
-  let query = queryParams.get("q")
-  query = decodeURI(query);
   let fuse
 
 
@@ -25,29 +22,37 @@ const Products = () => {
   }, []);
 
   useEffect(() => {
+    //Fuse is a client side search library
     fuse = new Fuse(products, {
       keys: ["name", "category", "description"],
       threshold: 0.3
     })
 
+    let queryParams = new URLSearchParams(window.location.search);
+    let query = queryParams.get("q")
+    query = decodeURI(query);
+
+    //initialize the current products to be the first N products by ID
     setCurrProducts([...products].sort((a, b) => a.id - b.id).slice(0, numPerPage));
 
-    if (!query) {
+    if (query == "null") {
       setCurrProducts([...products].sort((a, b) => a.id - b.id).slice(0, numPerPage));
       setFilteredProducts([...products].sort((a, b) => a.id - b.id));
       if(products.length <= numPerPage) {
         setIsLastPage(true);
+      } else {
+        setIsLastPage(false);
       }
     } else {
+
       setFilteredProducts(fuse.search(query).map((result) => result.item));
       setCurrProducts(fuse.search(query).map((result) => result.item).slice(0, numPerPage));
       if(fuse.search(query).map((result) => result.item).length <= numPerPage) {
         setIsLastPage(true);
+      } else {
+        setIsLastPage(false);
       }
     }
-
-
-
     
   }, [products]);
 
@@ -91,8 +96,16 @@ const Products = () => {
     <div className="selector-container">
     <select className="category-selector" onChange={(e) => filterProducts(e.target.value)}>
       <option value="all">All</option>
-      <option value="Accessories">Category 1</option>
-      <option value="Mens">Category 2</option>
+      <option value="Pants">Pants</option>
+      <option value="Shorts">Shorts</option>
+      <option value="T-Shirts">T-Shirts</option>
+      <option value="Long Sleeve Shirts">Long Sleeve Shirts</option>
+      <option value="Tank Tops">Tank Tops</option>
+      <option value="Sweatshirts">Sweatshirts</option>
+      <option value="Jackets">Jackets</option>
+      <option value="Hats">Hats</option>
+      <option value="Dresses">Dresses</option>
+      <option value="Socks">Socks</option>
     </select>
     </div>
     <span className="pagination-buttons">
