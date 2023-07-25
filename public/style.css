@@ -33,6 +33,16 @@ form div {
   }
 }
 
+.selector-container {
+  width: fit-content;
+  display: block;
+  margin: 0 auto;
+}
+
+select{
+  display:inline !important;
+}
+
 .products-container {
   width: 90%;
   display: flex;
