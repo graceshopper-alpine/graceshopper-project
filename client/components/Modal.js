@@ -1,20 +1,21 @@
 import React from "react";
 
-const Modal = ({continueModal}) => {
+const Modal = () => {
   return (
     <>
       <div className="modalBackground">
-        Modal
-      </div>
-      <div className="modalContainer"></div>
+      
+      <div className="modalContainer">
       <div className="modalTitle">
-        <h1>Thank You For Your Order</h1>
+        <h1>Thank You For Your Order!</h1>
       </div>
       <div className="modalBody">
-        <p>random filler</p>
+        <p>We are absolutely thrilled to extend our heartfelt gratitude to you for choosing Grace Shopper Alpine! Your order has been received and is currently being processed with the utmost care and attention to detail.</p>
       </div>
       <div className="modalFooter">
-        <button onClick={() => continueModal(false)}>Continue</button>
+        <button onClick={() => (window.location.href = "/products")}>Continue</button>
+      </div>
+      </div>
       </div>
     </>
   );
