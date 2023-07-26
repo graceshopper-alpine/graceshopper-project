@@ -86,7 +86,7 @@ const SingleProduct = () => {
         )}
 
         {isAdmin && 
-            <Link to={`/deleteproduct/${singleProduct.id}`}>Delete Product</Link>
+            <Link to={`/deleteproduct/${singleProduct.id}`}><button>Delete Product</button></Link>
         }
 
 

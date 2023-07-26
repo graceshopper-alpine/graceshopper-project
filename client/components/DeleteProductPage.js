@@ -19,7 +19,7 @@ const DeleteProductPage = () => {
       event.preventDefault();
       
       //create the product in the db
-      let newproduct = await axios.delete(`/api/admin/products/${productId}/deleteproduct`,
+      let deleteStatus = await axios.delete(`/api/admin/products/${product.id}/deleteproduct`,
       {
         headers: {
           "Authorization": `${localStorage.getItem("token")}`
@@ -27,7 +27,10 @@ const DeleteProductPage = () => {
       }
       );
       //if the product is deleted successfully
-      if (newproduct.id) {
+
+      console.log("deleteStatus", deleteStatus);
+
+      if (deleteStatus.status == 204) {
       window.location= "/products?toast=product-deleted"
       }
 
@@ -39,15 +42,15 @@ const DeleteProductPage = () => {
   };
 
   return (
-    <div>
+    <div className="delete-product-container">
       {product ? (
         <div>
-          <h2>Delete Product</h2>
+          <h2 className="fancy-font">Delete Product</h2>
           <p>Product Name: {product.name}</p>
-          <img src={product.image} alt={product.name} />
-          <p>Delete this product, are you sure?</p>
-          <button onClick={handleDelete}>Yes</button>
-          <button onClick={handleCancel}>No</button>
+          <img src={product.image_url} alt={product.name} />
+          <p>Are you sure? Deleting a product can not be undone.</p>
+          <button onClick={handleCancel}>Cancel</button>
+          <button onClick={handleDelete}>Delete</button>
         </div>
       ) : (
         <p>Loading...</p>
