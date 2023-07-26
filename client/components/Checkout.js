@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Modal from "./Modal";
+import axios from "axios";
 
 const Checkout = () => {
   const cart = useSelector((state) => state.main.cart);
@@ -24,8 +25,26 @@ const Checkout = () => {
     }));
   };
 
-  const handlePlaceOrder = (e) => {
+  const handlePlaceOrder = async (e) => {
     e.preventDefault();
+
+    //convert order to placed.
+    try{
+      const placedOrder = await axios.put("/api/orders/checkout", {
+        sessionId: window.localStorage.getItem("session_id"),
+      }, {
+        headers: {
+          "Authorization": localStorage.getItem("token")
+        }
+      })
+    } catch (err) {
+      if (err.response && err.response.data) {
+        console.log(err.response.data);
+      } else {
+        console.log(err);
+      }
+    }
+
     setOpenModal(true);
 
   };

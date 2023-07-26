@@ -49,11 +49,17 @@ form div {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  align-items: center;
   margin: 0 auto;
+}
+
+.selector-container a{
+  max-height: 50px;
 }
 
 .selector-container button{
   margin-top: 10px;
+  height: fit-content
 }
 
 select{
@@ -293,6 +299,10 @@ select{
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.addcart-button{
+  margin-right: 10px;
 }
 
 
@@ -813,12 +823,12 @@ button:active {
   background-color: #4b4b4b; /* Darker gray when hovering over the button */
 }
 
-.selector-container {
+/* .selector-container {
   display: inline-block;
   padding: 10px;
   border-radius: 4px;
   
-}
+} */
 
 /* Style the select box */
 .category-selector {
@@ -939,4 +949,64 @@ button:active {
   .auth-form {
     margin-top: 130px;
   }
+}
+
+
+
+/* delete product page */
+
+.delete-product-container{
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.delete-product-container button{
+  margin: 10px;
+}
+
+.delete-product-container img{
+  width: 25vw;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+
+
+
+
+/* new product page */
+
+.new-product-page-container{
+  width: 40vw;
+  margin: 0 auto;
+}
+
+.new-product-page-container form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.new-product-page-container form label{
+  width: 100%;
+  display: flex;
+  justify-content: space-between
+}
+
+.new-product-page-container form input, .new-product-page-container form textarea{
+  width: 60%;
+  padding: 5px;
+  margin: 5px;
+}
+
+.new-product-page-container form textarea{
+  height: 15vh
+}
+
+.new-product-page-container button{
+  margin: 10px;
+}
+
+.new-product-page-container input:invalid, .new-product-page-container input .new-product-page-container textarea{
+  border: 1px solid lightgrey
 }

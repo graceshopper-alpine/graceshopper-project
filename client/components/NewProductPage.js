@@ -25,6 +25,8 @@ const NewProductPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    console.log("trying to submit");
     
     //create the product in the db
     let newproduct = await axios.post("/api/admin/products/addproduct", productData,
@@ -34,17 +36,19 @@ const NewProductPage = () => {
       },
     }
     );
+    console.log("newproduct", newproduct);
     //if the product is created successfully
-    if (newproduct.id) {
-    window.location= "/products?toast=product-created"
+    if (newproduct.data && newproduct.data.id) {
+        console.log("there is a new product id")
+        window.location = "/products?toast=product-created"
     }
 
 
   };
 
   return (
-    <div>
-      <h2>Add New Product</h2>
+    <div className="new-product-page-container">
+      <h2 className="fancy-font">Add New Product</h2>
       <form onSubmit={handleSubmit}>
         <label>
           Name:

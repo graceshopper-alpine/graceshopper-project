@@ -95,7 +95,7 @@ router.get("/users/:id", adminOnly, async (req, res, next) => {
               include: [
                 {
                   model: OrderItem,
-                  attributes: ["id", "quantity", "createdAt", "updatedAt"],
+                  attributes: ["id", "quantity", "createdAt", "updatedAt", "orderId"],
                   include: [
                     {
                       model: Product,
@@ -248,13 +248,16 @@ router.delete(
       //get id of product to delete
       const prodId = req.params.id;
 
-      //find that product
-      const delProd = await Product.findOne({ where: prodId });
+      // //find that product
+      const delProd = await Product.findOne({ where: 
+        {
+          id: prodId
+        }});
 
       //if product exists then destroy, else 404
       if (delProd) {
-        await Product.destroy();
-        res.status(204).end();
+        await Product.destroy({where: {id: prodId}});
+        res.status(204).send("success");
       } else {
         res.status(404).send("Item not found.");
       }

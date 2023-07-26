@@ -32,6 +32,10 @@ const Products = () => {
       toast("Product created successfully.");
     }
 
+    else if (toastParam == "product-deleted"){
+      toast("Product deleted successfully.");
+    }
+
   }, []);
 
   useEffect(() => {
