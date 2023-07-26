@@ -81,8 +81,9 @@ const App = () => {
 
       const getCartFromSession = async () => {
         //this backend route should also check if there is a cart for any other sessions for the user.
-        const res = await axios.get(`api/sessions/${sessionId}/cart`);
+        const res = await axios.get(`/api/sessions/${sessionId}/cart?timestamp=${Date.now().toLocaleString()}`);
 
+        console.log(res)
         if (res.data.id) {
           dispatch({
             type: "main/setCartId",
