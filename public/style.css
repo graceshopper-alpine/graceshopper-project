@@ -46,8 +46,14 @@ form div {
 
 .selector-container {
   width: fit-content;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
   margin: 0 auto;
+}
+
+.selector-container button{
+  margin-top: 10px;
 }
 
 select{

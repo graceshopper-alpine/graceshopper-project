@@ -10,6 +10,8 @@ import Cart from "./components/Cart";
 import Checkout from "./components/Checkout";
 import UserList from "./components/AllUsers";
 import User from "./components/User";
+import NewProductPage from "./components/NewProductPage";
+import DeleteProductPage from "./components/DeleteProductPage";
 
 /**
  * COMPONENT
@@ -32,6 +34,9 @@ class Routes extends Component {
             <Route path="/checkout" component={Checkout} />
             <Route path="/users/:id" component={User} />
             <Route path="/users" component={UserList} />
+            <Route path="/newproduct" component={NewProductPage} />
+            <Route path="/deleteproduct/:id" component={DeleteProductPage} />
+
             <Redirect to="/products" />
           </Switch>
         ) : (
