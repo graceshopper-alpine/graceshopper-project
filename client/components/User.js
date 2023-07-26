@@ -25,7 +25,7 @@ const User = () => {
   useEffect(() => {
     // If redux thunk fails to get a user, it sets a doesNotExist flag in the user state and we redirect to home.
     if(user.doesNotExist) {
-      window.location = "/"
+      window.location = "/products?toast=user-not-found";
     }
   },[user])
 

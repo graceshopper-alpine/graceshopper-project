@@ -4,6 +4,8 @@ import { getAllProducts } from "../store/productsSlice";
 import {useSearchParams} from "react-router-dom";
 import Product from "./Product";
 import Fuse from "fuse.js";
+import { ToastContainer, toast } from 'react-toastify';
+
 
 const Products = () => {
   const dispatch = useDispatch(); // used to dispatch the action
@@ -19,6 +21,12 @@ const Products = () => {
 
   useEffect(() => {
     dispatch(getAllProducts());
+    let queryParams = new URLSearchParams(window.location.search);
+    let toastParam = queryParams.get("toast");
+    if (toastParam == "user-not-found") {
+      toast("Sorry, that user doesn't exist.");
+    }
+
   }, []);
 
   useEffect(() => {
