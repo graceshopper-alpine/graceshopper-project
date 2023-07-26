@@ -196,6 +196,7 @@ select{
   justify-content: center;
   flex-wrap: wrap;
   height: 60vh;
+  margin-top: 150px;
 }
 
 @media (max-width: 1100px){
