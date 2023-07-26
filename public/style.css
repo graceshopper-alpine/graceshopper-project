@@ -807,6 +807,55 @@ button:active {
   background-color: #4b4b4b; /* Darker gray when hovering over the button */
 }
 
+.selector-container {
+  display: inline-block;
+  padding: 10px;
+  border-radius: 4px;
+  
+}
+
+/* Style the select box */
+.category-selector {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #333;
+}
+
+/* Style the select box arrow */
+.category-selector::-ms-expand {
+  display: none;
+}
+
+.category-selector::before {
+  content: "\25BC";
+  position: absolute;
+  top: 10px;
+  right: 100px;
+  font-size: 14px;
+}
+
+/* Style the select box when it's hovered */
+.category-selector:hover {
+  border-color: #888;
+}
+
+/* Style the select box when it's focused */
+.category-selector:focus {
+  outline: none;
+  border-color: #555;
+  box-shadow: 0 0 5px #555;
+}
+
+/* Style the select box options */
+.category-selector option {
+  background-color: #fff;
+  color: #333;
+}
+
+
 /* Responsiveness for smaller screens */
 @media (max-width: 480px) {
   .checkout-container {
