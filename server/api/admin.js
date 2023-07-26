@@ -95,7 +95,7 @@ router.get("/users/:id", adminOnly, async (req, res, next) => {
               include: [
                 {
                   model: OrderItem,
-                  attributes: ["id", "quantity", "createdAt", "updatedAt"],
+                  attributes: ["id", "quantity", "createdAt", "updatedAt", "orderId"],
                   include: [
                     {
                       model: Product,
