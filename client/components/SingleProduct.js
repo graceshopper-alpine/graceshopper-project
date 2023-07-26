@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchSingleProduct } from "../store/singleProductSlice";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const SingleProduct = () => {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ const SingleProduct = () => {
 
   const sessionId = useSelector((state) => state.main.sessionId);
   const token = localStorage.getItem("token");
+  const isAdmin = useSelector((state) => state.main.isAdmin);
 
   useEffect(() => {
     dispatch(fetchSingleProduct(id));
@@ -82,6 +84,12 @@ const SingleProduct = () => {
             Add To Cart
           </button>
         )}
+
+        {isAdmin && 
+            <Link to={`/deleteproduct/${singleProduct.id}`}>Delete Product</Link>
+        }
+
+
       </div>
     </div>
   );

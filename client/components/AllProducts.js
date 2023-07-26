@@ -5,6 +5,7 @@ import {useSearchParams} from "react-router-dom";
 import Product from "./Product";
 import Fuse from "fuse.js";
 import { ToastContainer, toast } from 'react-toastify';
+import { Link } from "react-router-dom";
 
 
 const Products = () => {
@@ -15,6 +16,7 @@ const Products = () => {
   const [page, setPage] = useState(1);
   const [isLastPage, setIsLastPage] = useState(false);
   const [query, setQuery] = useState("");
+  const isAdmin = useSelector((state) => state.main.isAdmin);
   const numPerPage = 15;
   let fuse
 
@@ -25,6 +27,9 @@ const Products = () => {
     let toastParam = queryParams.get("toast");
     if (toastParam == "user-not-found") {
       toast("Sorry, that user doesn't exist.");
+    } 
+    else if (toastParam == "product-created"){
+      toast("Product created successfully.");
     }
 
   }, []);
@@ -121,6 +126,11 @@ const Products = () => {
       <option value="Dresses">Dresses</option>
       <option value="Socks">Socks</option>
     </select>
+
+    { isAdmin && <Link to="/newproduct">
+        <button>Add New Product</button>
+        </Link> }
+
     </div>
 
     {currProducts.length > 0 &&
@@ -131,6 +141,7 @@ const Products = () => {
       <button className={isLastPage && "inactive"} onClick={()=>paginate("next")}>Next</button>
     </span>
     <div className="products-container">
+
       {currProducts.map((p) => {
 
         return <Product product={p} key={`Product: ${p.id}`} />;
