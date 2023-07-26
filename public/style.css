@@ -19,6 +19,7 @@ nav a {
 }
 
 nav input {
+  margin-left: 10px;
   margin-right: 10px;
 }
 
@@ -459,6 +460,7 @@ nav {
 nav div{
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 nav h2{
@@ -871,9 +873,15 @@ button:active {
 
 
 
-/* auth form styling */
-
 .auth-form{
   display: flex;
   justify-content: center;
+}
+
+/* auth form styling */
+
+@media( max-width: 959px){ 
+  .auth-form {
+    margin-top: 130px;
+  }
 }
