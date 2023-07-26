@@ -7,7 +7,7 @@ const DeleteUserModal = ({cancelModal, deleteUser}) => {
       
       <div className="modalContainer">
       <div className="modalTitle">
-        <h1>Are you sure?</h1>
+        <h1 className="fancy-font">Are you sure?</h1>
       </div>
       <div className="modalBody">
         <p> This operation can not be undone.</p>

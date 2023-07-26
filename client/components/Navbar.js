@@ -6,7 +6,8 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import Fuse from 'fuse.js'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Navbar = ({ handleClick, isLoggedIn }) => {
@@ -32,9 +33,13 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
     setSearchField(e.target.value);
   }
 
+
   return (
     <div className="outer-nav-container">
       <nav>
+
+        
+
         {isLoggedIn ? (
           <div>
             {/* The navbar will show these links after you log in */}
@@ -50,7 +55,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
               Toggle Admin ({isAdmin ? "True" : "False"})
             </a>
             <Link to={`/users/${userId}`}>{username}</Link>
-            <a href="#" onClick={handleClick}>
+            <a href="#" onClick={()=> {toast("You have been logged out"); handleClick()}}>
               Logout
             </a>
             <input onKeyDown={(e)=>{if(e.key === "Enter"){window.location = `/products?q=${encodeURI(searchField)}`}}} type="text" placeholder="Search" value={searchField} onChange={handleSearchChange}></input>

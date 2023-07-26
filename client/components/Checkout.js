@@ -42,7 +42,7 @@ const Checkout = () => {
   };
 
   return (
-    <div>
+    <div className="checkout-container-outer">
       <div className="fancy-font-checkout">
         <div>
           <h1 className="fancy-font-checkout">Checkout</h1>

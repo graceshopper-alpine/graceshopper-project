@@ -5,6 +5,8 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -81,8 +83,9 @@ const App = () => {
 
       const getCartFromSession = async () => {
         //this backend route should also check if there is a cart for any other sessions for the user.
-        const res = await axios.get(`api/sessions/${sessionId}/cart`);
+        const res = await axios.get(`/api/sessions/${sessionId}/cart?timestamp=${Date.now().toLocaleString()}`);
 
+        console.log(res)
         if (res.data.id) {
           dispatch({
             type: "main/setCartId",
@@ -102,6 +105,18 @@ const App = () => {
 
   return (
     <div>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={1500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={true}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        />
       <Navbar />
       <Routes />
     </div>

@@ -7,7 +7,7 @@ const Modal = () => {
       
       <div className="modalContainer">
       <div className="modalTitle">
-        <h1>Thank You For Your Order!</h1>
+        <h1 className="fancy-font">Thank You For Your Order!</h1>
       </div>
       <div className="modalBody">
         <p>We are absolutely thrilled to extend our heartfelt gratitude to you for choosing Grace Shopper Alpine! Your order has been received and is currently being processed with the utmost care and attention to detail.</p>
