@@ -864,3 +864,16 @@ button:active {
 .modalFooter button{
   margin: 10px;
 }
+
+
+
+
+
+
+
+/* auth form styling */
+
+.auth-form{
+  display: flex;
+  justify-content: center;
+}
