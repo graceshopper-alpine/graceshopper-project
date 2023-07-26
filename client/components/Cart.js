@@ -80,7 +80,7 @@ const Cart = () => {
                 <>
                   <div key={`Product: ${p.id}`} className="cart-item">
                     <img
-                      src={`https://picsum.photos/seed/${p.product.id}/200`}
+                      src={`${p.product.image_url}`}
                     >
 
                     </img>

@@ -23,8 +23,9 @@ const User = () => {
   }, [id, isAdmin]);
 
   useEffect(() => {
+    // If redux thunk fails to get a user, it sets a doesNotExist flag in the user state and we redirect to home.
     if(user.doesNotExist) {
-      window.location = "/"
+      window.location = "/products?toast=user-not-found";
     }
   },[user])
 
@@ -36,7 +37,7 @@ const User = () => {
     setPhoneField(user.phone);
   }, [user.phone]);
 
-  const toggleEdit = async (type) => {
+  const makeEdit = async (type) => {
     
     if (type === "email") {
       if (!editEmail) {
@@ -127,12 +128,15 @@ const User = () => {
         <h2>Contact Details</h2>
         <span>
           <b>Email:</b> {editEmail ? <input name="email" type="email" pattern="^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$" value={emailField} onChange={handleChange}></input> : user.email}
-          <a onClick={()=>toggleEdit('email')}>{editEmail ? "Save" : "Edit"}</a>
+          <a onClick={()=>makeEdit('email')}>{editEmail ? "Save" : "Edit"}</a>
+          {editEmail && <a onClick={()=>setEditEmail(false)}>Cancel</a>}
+
         </span>
         
         <span>
           <b>Phone:</b> {editPhone ? <input name="phone" type="tel" pattern="^\(?\d{3}\)?[\- ]?\d{3}[\- ]?\d{4}$" value={phoneField} onChange={handleChange}></input> : user.phone}
-          <a onClick={()=>toggleEdit('phone')}>{editPhone ? "Save" : "Edit"}</a>
+          <a onClick={()=>makeEdit('phone')}>{editPhone ? "Save" : "Edit"}</a>
+          {editPhone && <a onClick={()=>setEditPhone(false)}>Cancel</a>}
         </span>
 
         <span>
@@ -142,6 +146,8 @@ const User = () => {
        {isAdmin && 
        <>
        <h2>Sessions</h2>
+
+       {user.sessions.length > 0 ?
         <table>
           <thead>
             <tr>
@@ -162,9 +168,19 @@ const User = () => {
             })}
           </tbody>
         </table> 
-        </>}
+        
+        : <h3>No Sessions</h3>}
+        
+        </>
+        }
 
         <h2>Orders</h2>
+
+        
+       {user.sessions
+       .flatMap((session) => session.orders)
+       .length > 0 ? 
+              
         <table>
           <thead>
             <tr>
@@ -203,12 +219,21 @@ const User = () => {
           </tbody>
         </table>
 
+        : <h3>No Orders</h3>}
+
         <h2>Order Items</h2>
+
+
+        {user.sessions
+              .flatMap((session) => session.orders)
+              .flatMap((order) => order.order_items)
+              .length > 0 ?
 
         <table>
           <thead>
             <tr>
               <th>Id</th>
+              <th>Order Id</th>
               <th>Date</th>
               <th>Product Name</th>
               <th>Quantity</th>
@@ -223,6 +248,7 @@ const User = () => {
                 return (
                   <tr key={item.id}>
                     <td>{item.id}</td>
+                    <td>{item.orderId}</td>
                     <td>{item.createdAt}</td>
                     <td>
                       <Link to={`/products/${item.product.id}`}>
@@ -242,6 +268,10 @@ const User = () => {
               })}
           </tbody>
         </table>
+
+        : <h3>No Order Items</h3>
+        }
+
       </div>
     );
   } else {

@@ -42,12 +42,46 @@ const Checkout = () => {
   };
 
   return (
-    <div>
+    <div className="checkout-container-outer">
       <div className="fancy-font-checkout">
         <div>
           <h1 className="fancy-font-checkout">Checkout</h1>
         </div>
       </div>
+
+      <div className="item-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {cart.map((item) => (
+              <tr key={`CartItem:${item.id}`}>
+                <td>{item.product.name}</td>
+                <td>{item.product.price}</td>
+                <td>{item.quantity}</td>
+                <td>
+                  {(
+                    parseFloat(item.product.price.replace("$", "")) *
+                    item.quantity
+                  ).toFixed(2)}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="total-info">
+        <h3>Total: ${calculateTotal().toFixed(2)}</h3>
+      </div>
+
+
       <div className="checkout-container">
         <div>
           <div>
@@ -136,37 +170,8 @@ const Checkout = () => {
         <div></div>
       </div>
 
-      <div className="item-container">
-        <table>
-          <thead>
-            <tr>
-              <th>Product</th>
-              <th>Price</th>
-              <th>Quantity</th>
-              <th>Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            {cart.map((item) => (
-              <tr key={`CartItem:${item.id}`}>
-                <td>{item.product.name}</td>
-                <td>{item.product.price}</td>
-                <td>{item.quantity}</td>
-                <td>
-                  {(
-                    parseFloat(item.product.price.replace("$", "")) *
-                    item.quantity
-                  ).toFixed(2)}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      
 
-      <div className="total-info">
-        <h3>Total: ${calculateTotal().toFixed(2)}</h3>
-      </div>
       <div className="payment-container">
         <div>
           <div>

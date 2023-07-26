@@ -6,7 +6,8 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import Fuse from 'fuse.js'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Navbar = ({ handleClick, isLoggedIn }) => {
@@ -32,16 +33,20 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
     setSearchField(e.target.value);
   }
 
+
   return (
     <div className="outer-nav-container">
       <nav>
+
+        
+
         {isLoggedIn ? (
           <div>
             {/* The navbar will show these links after you log in */}
-            <Link to="/products">
+            <Link to="/">
               <h2>Grace Shopper</h2>
             </Link>
-            <Link to="/products">Products</Link>
+            <Link to="/">Products</Link>
             <Link to="/cart">
               {cart.length > 0 ? `Cart (${cart.length})` : `Cart`}
             </Link>
@@ -50,7 +55,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
               Toggle Admin ({isAdmin ? "True" : "False"})
             </a>
             <Link to={`/users/${userId}`}>{username}</Link>
-            <a href="#" onClick={handleClick}>
+            <a href="#" onClick={()=> {toast("You have been logged out"); handleClick()}}>
               Logout
             </a>
             <input onKeyDown={(e)=>{if(e.key === "Enter"){window.location = `/products?q=${encodeURI(searchField)}`}}} type="text" placeholder="Search" value={searchField} onChange={handleSearchChange}></input>
@@ -58,11 +63,11 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
           </div>
         ) : (
           <div>
-            <Link to="/products">
+            <Link to="/">
               <h2>Grace Shopper</h2>
             </Link>
             {/* The navbar will show these links before you log in */}
-            <Link to="/products">Products</Link>
+            <Link to="/">Products</Link>
             <Link to="/cart">
               {cart.length > 0 ? `Cart (${cart.length})` : `Cart`}
             </Link>

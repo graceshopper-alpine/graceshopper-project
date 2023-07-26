@@ -29,6 +29,10 @@ router.put("/update", async (req, res, next) => {
 });
 
 router.get("/:id/cart", async (req, res, next) => {
+
+  console.log("trying to get cart")
+  console.log('req.params.id', req.params.id)
+  
   try {
     const session = await Session.findByPk(req.params.id);
     const userId = session.userId;
@@ -114,6 +118,8 @@ router.get("/:id/cart", async (req, res, next) => {
         cart = user.sessions[0].orders[0];
       }
     }
+
+  
 
     if (!cart) {
       res.send("No cart found");

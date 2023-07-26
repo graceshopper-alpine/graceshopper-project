@@ -4,6 +4,8 @@ import { getAllProducts } from "../store/productsSlice";
 import {useSearchParams} from "react-router-dom";
 import Product from "./Product";
 import Fuse from "fuse.js";
+import { ToastContainer, toast } from 'react-toastify';
+
 
 const Products = () => {
   const dispatch = useDispatch(); // used to dispatch the action
@@ -14,12 +16,17 @@ const Products = () => {
   const [isLastPage, setIsLastPage] = useState(false);
   const [query, setQuery] = useState("");
   const numPerPage = 15;
-  // let [searchParams, setSearchParams] = useSearchParams();
   let fuse
 
 
   useEffect(() => {
     dispatch(getAllProducts());
+    let queryParams = new URLSearchParams(window.location.search);
+    let toastParam = queryParams.get("toast");
+    if (toastParam == "user-not-found") {
+      toast("Sorry, that user doesn't exist.");
+    }
+
   }, []);
 
   useEffect(() => {
@@ -85,10 +92,15 @@ const Products = () => {
       setPage(1);
       setIsLastPage(false);
     } else {
-      setFilteredProducts([...products].filter((p) => p.category === category).sort((a, b) => a.id - b.id));
-      setCurrProducts([...products].filter((p) => p.category === category).sort((a, b) => a.id - b.id).slice(0, numPerPage));
+      let filteredProds = [...products].filter((p) => p.category === category).sort((a, b) => a.id - b.id)
+      setFilteredProducts(filteredProds);
+      setCurrProducts(filteredProds.slice(0, numPerPage));
       setPage(1);
+      if (filteredProds.length <= numPerPage) {
+        setIsLastPage(true);
+      } else {
       setIsLastPage(false);
+      }
     }
   }
 
@@ -97,7 +109,7 @@ const Products = () => {
     <>
     <div className="selector-container">
     <select className="category-selector" onChange={(e) => filterProducts(e.target.value)}>
-      <option value="all">All</option>
+      <option value="all">Select Category</option>
       <option value="Pants">Pants</option>
       <option value="Shorts">Shorts</option>
       <option value="T-Shirts">T-Shirts</option>
@@ -115,19 +127,15 @@ const Products = () => {
     <>
     <span className="pagination-buttons">
       <button className={page==1 && "inactive"} onClick={()=>paginate("prev")}>Previous</button>
+      <p className="pageNum">{page} of {Math.ceil(filteredProducts.length / numPerPage)}</p>
       <button className={isLastPage && "inactive"} onClick={()=>paginate("next")}>Next</button>
     </span>
-    <p className="pageNum">{page} of {Math.ceil(filteredProducts.length / numPerPage)}</p>
     <div className="products-container">
       {currProducts.map((p) => {
 
         return <Product product={p} key={`Product: ${p.id}`} />;
       })}
     </div>
-    <span className="pagination-buttons">
-      <button className={page==1 && "inactive"} onClick={()=>paginate("prev")}>Previous</button>
-      <button className={isLastPage && "inactive"} onClick={()=>paginate("next")}>Next</button>
-    </span>
     </>
     }
 

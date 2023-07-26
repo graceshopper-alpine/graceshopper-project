@@ -9,17 +9,22 @@ app.use(express.json());
 
 // logging middleware
 app.use(morgan("dev"));
-
+app.disable('etag');
 // auth and api routes
 app.use("/auth", require("./auth"));
 app.use("/api", require("./api"));
+
+
+
 
 app.get("/", (req, res) =>
   res.sendFile(path.join(__dirname, "..", "public/index.html"))
 );
 
 // static file-serving middleware
-app.use(express.static(path.join(__dirname, "..", "public")));
+app.use(express.static(path.join(__dirname, "..", "public"), {
+  etag: false,
+}));
 
 // any remaining requests with an extension (.js, .css, etc.) send 404
 app.use((req, res, next) => {
